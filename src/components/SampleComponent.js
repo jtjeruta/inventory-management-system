@@ -5,7 +5,6 @@ const Container = styled.div`
     color: palevioletred;
     font-size: 1em;
     margin: 1em;
-    padding: 0.25em 1em;
     border: 2px solid palevioletred;
     border-radius: 3px;
     width: fit-content;
@@ -18,7 +17,7 @@ const Container = styled.div`
 `
 
 const SampleComponent = () => {
-    return <Container>This is a sample component</Container>
+    return <Container className="p-1">This is a sample component</Container>
 }
 
 export default SampleComponent
