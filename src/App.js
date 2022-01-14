@@ -1,11 +1,12 @@
-import SamplePage from "./pages/sample";
+import React from 'react'
+import SamplePage from './pages/SamplePage'
 
-const App = () => {
-  return (
-    <div className="App">
-      <SamplePage />
-    </div>
-  );
+function App() {
+    return (
+        <div className="App">
+            <SamplePage />
+        </div>
+    )
 }
 
-export default App;
+export default App
