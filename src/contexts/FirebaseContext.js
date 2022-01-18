@@ -1,41 +1,29 @@
-import React, {
-    createContext,
-    useContext,
-    useEffect,
-    useMemo,
-    useState,
-} from 'react'
+import React, { createContext, useContext, useEffect, useMemo } from 'react'
 import { initializeApp } from 'firebase/app'
 
 const FirebaseContext = createContext()
 
 const FirebaseContextProvider = ({ children }) => {
-    const [firebase, setFirebase] = useState(null)
-
     useEffect(() => {
-        function init() {
+        async function init() {
             const firebaseConfig = {
-                apiKey: 'AIzaSyAoiidkgcOXyec7hhf3RHzzISx0Qu2Ruqk',
-                authDomain: 'ims---staging.firebaseapp.com',
-                projectId: 'ims---staging',
-                storageBucket: 'ims---staging.appspot.com',
-                messagingSenderId: '1050610650976',
-                appId: '1:1050610650976:web:cff3d8d351fd4282555805',
-                measurementId: 'G-VLHDNRHCHN',
+                apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+                authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+                projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+                storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+                messagingSenderId:
+                    process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+                appId: process.env.REACT_APP_FIREBASE_APP_ID,
+                measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
             }
 
-            setFirebase(initializeApp(firebaseConfig))
+            await initializeApp(firebaseConfig)
         }
 
         init()
     })
 
-    const value = useMemo(
-        () => ({
-            firebase,
-        }),
-        [firebase]
-    )
+    const value = useMemo(() => ({}), [])
 
     return (
         <FirebaseContext.Provider value={value}>

@@ -35,7 +35,25 @@ Install dependencies
 npm install
 ```
 
-Run app
+Create a `.env` file in the root folder and add the following
+
+```bash
+export REACT_APP_FIREBASE_API_KEY='{{FIREBASE_API_KEY}}'
+export REACT_APP_FIREBASE_AUTH_DOMAIN='{{FIREBASE_AUTH_DOMAIN}}'
+export REACT_APP_FIREBASE_PROJECT_ID='{{FIREBASE_PROJECT_ID}}'
+export REACT_APP_FIREBASE_STORAGE_BUCKET='{{FIREBASE_STORAGE_BUCKET}}'
+export REACT_APP_FIREBASE_MESSAGING_SENDER_ID='{{FIREBASE_MESSAGING_SENDER_ID}}'
+export REACT_APP_FIREBASE_APP_ID='{{FIREBASE_APP_ID}}'
+export REACT_APP_FIREBASE_MEASUREMENT_ID='{{FIREBASE_MEASUREMENT_ID}}'
+```
+
+Load the environment variables
+
+```bash
+source .env
+```
+
+Run the app
 
 ```bash
 npm start

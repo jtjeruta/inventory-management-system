@@ -1,5 +1,9 @@
 import React, { createContext, useContext, useMemo, useState } from 'react'
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import {
+    getAuth as getFirebaseAuth,
+    signInWithEmailAndPassword,
+    signOut,
+} from 'firebase/auth'
 import { useAppContext } from './AppContext'
 
 const AuthContext = createContext()
@@ -8,8 +12,25 @@ const AuthContextProvider = ({ children }) => {
     const AppContext = useAppContext()
     const [user, setUser] = useState(null)
 
+    const getAuth = () => {
+        try {
+            const auth = getFirebaseAuth()
+            return auth
+        } catch (error) {
+            AppContext.addNotification({
+                type: 'error',
+                title: 'Authentication failed.',
+                content: 'Please contact support.',
+            })
+
+            return null
+        }
+    }
+
     const signin = async () => {
         const auth = getAuth()
+
+        if (!auth) return [false]
 
         try {
             const response = await signInWithEmailAndPassword(
@@ -40,6 +61,8 @@ const AuthContextProvider = ({ children }) => {
 
     const signout = async () => {
         const auth = getAuth()
+
+        if (!auth) return [false]
 
         try {
             await signOut(auth)

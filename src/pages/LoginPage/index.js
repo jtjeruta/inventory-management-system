@@ -10,8 +10,8 @@ const LoginPage = () => {
 
     const handleSignin = async () => {
         setLoading(true)
-        await signin()
-        setLoading(false)
+        const response = await signin()
+        !response[0] && setLoading(false)
     }
 
     return (
