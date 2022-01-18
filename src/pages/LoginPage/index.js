@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useAuthContext } from '../../contexts/AuthContext'
@@ -54,6 +55,17 @@ const LoginPage = () => {
                         )}
                         Log in
                     </button>
+                    <div>
+                        <br />
+                    </div>
+                    <Link to="/Vendors">
+                        <button
+                            type="submit"
+                            className="w-full py-2 rounded-full bg-green-600 text-gray-100  focus:outline-none"
+                        >
+                            Sneaky Login
+                        </button>
+                    </Link>
                 </form>
             </div>
         </div>
