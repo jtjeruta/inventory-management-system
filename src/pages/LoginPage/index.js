@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Input from './Input'
 
 const LoginPage = () => {
@@ -30,6 +31,17 @@ const LoginPage = () => {
                     >
                         Button
                     </button>
+                    <div>
+                        <br />
+                    </div>
+                    <Link to="/Vendors">
+                        <button
+                            type="submit"
+                            className="w-full py-2 rounded-full bg-green-600 text-gray-100  focus:outline-none"
+                        >
+                            Sneaky Login
+                        </button>
+                    </Link>
                 </form>
             </div>
         </div>
