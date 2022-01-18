@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from 'react'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { useAppContext } from './AppContext'
 
 const AuthContext = createContext()
@@ -38,9 +38,28 @@ const AuthContextProvider = ({ children }) => {
         }
     }
 
+    const signout = async () => {
+        const auth = getAuth()
+
+        try {
+            await signOut(auth)
+            setUser(null)
+            return [true]
+        } catch (error) {
+            AppContext.addNotification({
+                type: 'error',
+                title: 'Something went wrong.',
+                content: 'Please try again later.',
+            })
+
+            return [false]
+        }
+    }
+
     const value = useMemo(
         () => ({
             signin,
+            signout,
             user,
         }),
         [user]

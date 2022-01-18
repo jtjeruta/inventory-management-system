@@ -19,7 +19,7 @@ const NotificationBadge = ({ id, title, content }) => {
 
     return (
         <div
-            className="rounded-b px-4 py-3 shadow-md animate-notif"
+            className="rounded-b px-4 py-3 shadow-md animate-notif bg-white"
             role="alert"
             style={{ width: 300 }}
         >

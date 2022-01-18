@@ -1,7 +1,10 @@
 import React from 'react'
+import { useAuthContext } from '../contexts/AuthContext'
 import NavBarTab from './NavBarTab'
 
 const AdminNavbar = ({ activeKey }) => {
+    const { signout } = useAuthContext()
+
     return (
         <nav className="bg-neutral-700 flex">
             <div className="basis-1/4">
@@ -59,12 +62,13 @@ const AdminNavbar = ({ activeKey }) => {
                 </ul>
             </div>
             <div className="basis-1/4">
-                <a
+                <button
+                    type="button"
                     className="flex inline-block py-3 px-4 font-semibold text-white place-content-end"
-                    href="./"
+                    onClick={() => signout()}
                 >
                     Log Out
-                </a>
+                </button>
             </div>
         </nav>
     )

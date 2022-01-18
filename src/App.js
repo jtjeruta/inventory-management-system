@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { AppContextProvider } from './contexts/AppContext'
 import { FirebaseContextProvider } from './contexts/FirebaseContext'
-import { AuthContextProvider } from './contexts/AuthContext'
+import { AuthContextProvider, useAuthContext } from './contexts/AuthContext'
 import LoginPage from './pages/LoginPage'
 import NotificationList from './components/NotificationList'
 import Vendors from './pages/Vendors'
@@ -14,24 +14,34 @@ import Customers from './pages/Customers'
 import Logs from './pages/Logs'
 
 function AppContent() {
+    const { user } = useAuthContext()
+
     return (
-        <div>
+        <>
             <NotificationList />
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<LoginPage />} />
-                    <Route path="/Vendors" element={<Vendors />} />
-                    <Route
-                        path="/PurchaseOrders"
-                        element={<PurchaseOrders />}
-                    />
-                    <Route path="/Inventory" element={<Inventory />} />
-                    <Route path="/SalesOrders" element={<SalesOrders />} />
-                    <Route path="/Customers" element={<Customers />} />
-                    <Route path="/Logs" element={<Logs />} />
+                    {!user ? (
+                        <Route path="/" element={<LoginPage />} />
+                    ) : (
+                        <>
+                            <Route path="/" element={<Vendors />} />
+                            <Route
+                                path="/PurchaseOrders"
+                                element={<PurchaseOrders />}
+                            />
+                            <Route path="/Inventory" element={<Inventory />} />
+                            <Route
+                                path="/SalesOrders"
+                                element={<SalesOrders />}
+                            />
+                            <Route path="/Customers" element={<Customers />} />
+                            <Route path="/Logs" element={<Logs />} />
+                        </>
+                    )}
                 </Routes>
             </BrowserRouter>
-        </div>
+        </>
     )
 }
 
