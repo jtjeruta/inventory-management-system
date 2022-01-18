@@ -1,7 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { useAuthContext } from '../../contexts/AuthContext'
 import Input from './Input'
 
 const LoginPage = () => {
+    const { signin } = useAuthContext()
+    const [loading, setLoading] = useState(false)
+
+    const handleSignin = async () => {
+        setLoading(true)
+        await signin()
+        setLoading(false)
+    }
+
     return (
         <div className="h-screen flex justify-center items-center">
             <div className="bg-white rounded-lg w-2/5 px-16 py-16">
@@ -25,10 +37,22 @@ const LoginPage = () => {
                         Forgot Password?
                     </a>
                     <button
-                        type="submit"
+                        type="button"
                         className="w-full py-2 rounded-full bg-green-600 text-gray-100  focus:outline-none"
+                        onClick={handleSignin}
+                        disabled={loading}
                     >
-                        Button
+                        {loading && (
+                            <FontAwesomeIcon
+                                icon={faSpinner}
+                                className="animate-spin"
+                                style={{
+                                    marginRight: 10,
+                                    marginLeft: -26,
+                                }}
+                            />
+                        )}
+                        Log in
                     </button>
                 </form>
             </div>
