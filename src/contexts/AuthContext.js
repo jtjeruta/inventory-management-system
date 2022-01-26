@@ -4,6 +4,8 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from 'firebase/auth'
+import { getFirestore, doc, getDoc } from 'firebase/firestore'
+
 import { useAppContext } from './AppContext'
 
 const AuthContext = createContext()
@@ -29,8 +31,11 @@ const AuthContextProvider = ({ children }) => {
 
     const signin = async (email, password) => {
         const auth = getAuth()
+        const db = getFirestore()
 
         if (!auth) return [false]
+
+        let loginUser = null
 
         try {
             const response = await signInWithEmailAndPassword(
@@ -39,7 +44,28 @@ const AuthContextProvider = ({ children }) => {
                 password
             )
 
-            setUser(response.user)
+            loginUser = {
+                id: response.user.uid,
+                email: response.user.email,
+            }
+        } catch (error) {
+            AppContext.addNotification({
+                type: 'error',
+                title: 'Something went wrong.',
+                content: 'Please try again later.',
+            })
+
+            return [false]
+        }
+
+        try {
+            const docSnap = await getDoc(doc(db, 'user-details', loginUser.id))
+
+            if (!docSnap.exists()) {
+                throw new Error('user details not found')
+            }
+
+            setUser({ ...loginUser, ...docSnap.data() })
 
             AppContext.addNotification({
                 type: 'success',
@@ -47,7 +73,7 @@ const AuthContextProvider = ({ children }) => {
                 content: 'Welcome back.',
             })
 
-            return [true, user]
+            return [true, loginUser]
         } catch (error) {
             AppContext.addNotification({
                 type: 'error',
