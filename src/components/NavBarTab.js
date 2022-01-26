@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const NavBarTab = ({ active, navbarKey, hrefLink }) => {
     const tabCss = 'inline-block py-3 px-4 font-semibold'
@@ -8,16 +9,16 @@ const NavBarTab = ({ active, navbarKey, hrefLink }) => {
 
     return (
         <li className="-mb-px mr-1">
-            <a
+            <Link
                 className={
                     active
                         ? `${tabCss}${selectedTabCss}`
                         : `${tabCss}${unselectedTabCss}`
                 }
-                href={hrefLink}
+                to={hrefLink}
             >
                 {navbarKey}
-            </a>
+            </Link>
         </li>
     )
 }

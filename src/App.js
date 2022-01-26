@@ -4,15 +4,33 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AppContextProvider } from './contexts/AppContext'
 import { FirebaseContextProvider } from './contexts/FirebaseContext'
 import { AuthContextProvider, useAuthContext } from './contexts/AuthContext'
-import LoginPage from './pages/LoginPage'
-import NotificationList from './components/NotificationList'
-import Vendors from './pages/Vendors'
-import PurchaseOrders from './pages/PurchaseOrders'
-import Inventory from './pages/Inventory'
-import SalesOrders from './pages/SalesOrders'
-import Customers from './pages/Customers'
-import Logs from './pages/Logs'
 import DefaultLayout from './layouts/DefaultLayout'
+import NotificationList from './components/NotificationList'
+import NotFoundPage from './pages/NotFoundPage'
+import AuthenticatedRoutes from './routes/authenticated'
+import UnAuthenticatedRoutes from './routes/unAuthenticated'
+
+function AppRoutes() {
+    const { user } = useAuthContext()
+    const routes = user ? AuthenticatedRoutes : UnAuthenticatedRoutes
+
+    return (
+        <Routes>
+            {routes.map((route) => (
+                <Route
+                    key={route.path}
+                    path={route.path}
+                    element={
+                        <React.Suspense fallback={<>...</>}>
+                            <route.component />
+                        </React.Suspense>
+                    }
+                />
+            ))}
+            <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+    )
+}
 
 function AppContent() {
     const { user } = useAuthContext()
@@ -21,27 +39,12 @@ function AppContent() {
         <>
             <NotificationList />
             <BrowserRouter>
-                {!user ? (
-                    <Routes>
-                        <Route path="/" element={<LoginPage />} />
-                    </Routes>
-                ) : (
+                {user ? (
                     <DefaultLayout>
-                        <Routes>
-                            <Route path="/" element={<Vendors />} />
-                            <Route
-                                path="/PurchaseOrders"
-                                element={<PurchaseOrders />}
-                            />
-                            <Route path="/Inventory" element={<Inventory />} />
-                            <Route
-                                path="/SalesOrders"
-                                element={<SalesOrders />}
-                            />
-                            <Route path="/Customers" element={<Customers />} />
-                            <Route path="/Logs" element={<Logs />} />
-                        </Routes>
+                        <AppRoutes />
                     </DefaultLayout>
+                ) : (
+                    <AppRoutes />
                 )}
             </BrowserRouter>
         </>

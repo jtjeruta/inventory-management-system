@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { useAuthContext } from '../contexts/AuthContext'
 import NavBarTab from './NavBarTab'
@@ -11,12 +11,12 @@ const AdminNavbar = () => {
     return (
         <nav className="bg-neutral-700 flex">
             <div className="basis-1/4">
-                <a
+                <Link
                     className="inline-block py-3 px-4 font-semibold text-white"
-                    href="./Vendors"
+                    to="/"
                 >
                     Inventory Management System
-                </a>
+                </Link>
             </div>
             <div className="basis-2/4">
                 <ul className="flex place-content-center">

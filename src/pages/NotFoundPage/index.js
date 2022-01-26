@@ -1,0 +1,25 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+
+const NotFoundPage = () => (
+    <div>
+        <div className="w-9/12 m-auto py-16 min-h-screen flex items-center justify-center">
+            <div className="overflow-hidden pb-8">
+                <div className="text-center pt-8">
+                    <h1 className="text-9xl font-bold text-purple-400">404</h1>
+                    <h1 className="text-6xl font-medium py-8 mb-20">
+                        oops! Page not found
+                    </h1>
+                    <Link
+                        to="/"
+                        className="bg-gradient-to-r from-purple-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold px-6 py-3 rounded-md mr-6"
+                    >
+                        Back to Home
+                    </Link>
+                </div>
+            </div>
+        </div>
+    </div>
+)
+
+export default NotFoundPage
