@@ -1,8 +1,11 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
+
 import { useAuthContext } from '../contexts/AuthContext'
 import NavBarTab from './NavBarTab'
 
-const AdminNavbar = ({ activeKey }) => {
+const AdminNavbar = () => {
+    const location = useLocation()
     const { signout } = useAuthContext()
 
     return (
@@ -18,44 +21,44 @@ const AdminNavbar = ({ activeKey }) => {
             <div className="basis-2/4">
                 <ul className="flex place-content-center">
                     <NavBarTab
-                        activeKey={activeKey}
+                        active={location.pathname === '/'}
                         navbarKey="Vendors"
-                        hrefLink="./Vendors"
+                        hrefLink="/"
                     >
                         Vendors
                     </NavBarTab>
                     <NavBarTab
-                        activeKey={activeKey}
+                        active={location.pathname === '/purchase-orders'}
                         navbarKey="PurchaseOrders"
-                        hrefLink="./PurchaseOrders"
+                        hrefLink="/purchase-orders"
                     >
                         PurchaseOrders
                     </NavBarTab>
                     <NavBarTab
-                        activeKey={activeKey}
+                        active={location.pathname === '/inventory'}
                         navbarKey="Inventory"
-                        hrefLink="./Inventory"
+                        hrefLink="/inventory"
                     >
                         Inventory
                     </NavBarTab>
                     <NavBarTab
-                        activeKey={activeKey}
+                        active={location.pathname === '/sales-orders'}
                         navbarKey="SalesOrders"
-                        hrefLink="./SalesOrders"
+                        hrefLink="/sales-orders"
                     >
                         SalesOrders
                     </NavBarTab>
                     <NavBarTab
-                        activeKey={activeKey}
+                        active={location.pathname === '/customers'}
                         navbarKey="Customers"
-                        hrefLink="./Customers"
+                        hrefLink="/customers"
                     >
                         Customers
                     </NavBarTab>
                     <NavBarTab
-                        activeKey={activeKey}
+                        active={location.pathname === '/logs'}
                         navbarKey="Logs"
-                        hrefLink="./Logs"
+                        hrefLink="/logs"
                     >
                         Logs
                     </NavBarTab>

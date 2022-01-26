@@ -12,6 +12,7 @@ import Inventory from './pages/Inventory'
 import SalesOrders from './pages/SalesOrders'
 import Customers from './pages/Customers'
 import Logs from './pages/Logs'
+import DefaultLayout from './layouts/DefaultLayout'
 
 function AppContent() {
     const { user } = useAuthContext()
@@ -20,11 +21,13 @@ function AppContent() {
         <>
             <NotificationList />
             <BrowserRouter>
-                <Routes>
-                    {!user ? (
+                {!user ? (
+                    <Routes>
                         <Route path="/" element={<LoginPage />} />
-                    ) : (
-                        <>
+                    </Routes>
+                ) : (
+                    <DefaultLayout>
+                        <Routes>
                             <Route path="/" element={<Vendors />} />
                             <Route
                                 path="/PurchaseOrders"
@@ -37,9 +40,9 @@ function AppContent() {
                             />
                             <Route path="/Customers" element={<Customers />} />
                             <Route path="/Logs" element={<Logs />} />
-                        </>
-                    )}
-                </Routes>
+                        </Routes>
+                    </DefaultLayout>
+                )}
             </BrowserRouter>
         </>
     )

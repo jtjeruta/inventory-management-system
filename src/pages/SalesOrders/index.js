@@ -1,12 +1,7 @@
 import React from 'react'
-import AdminNavBar from '../../components/AdminNavBar'
 
 const AdminPage = () => {
-    return (
-        <div>
-            <AdminNavBar activeKey="SalesOrders" />
-        </div>
-    )
+    return <div>Sales Orders Page</div>
 }
 
 export default AdminPage
