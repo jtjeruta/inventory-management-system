@@ -27,7 +27,7 @@ const AuthContextProvider = ({ children }) => {
         }
     }
 
-    const signin = async () => {
+    const signin = async (email, password) => {
         const auth = getAuth()
 
         if (!auth) return [false]
@@ -35,8 +35,8 @@ const AuthContextProvider = ({ children }) => {
         try {
             const response = await signInWithEmailAndPassword(
                 auth,
-                'jt.jeruta@gmail.com',
-                'password'
+                email,
+                password
             )
 
             setUser(response.user)

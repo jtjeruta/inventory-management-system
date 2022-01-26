@@ -25,14 +25,16 @@
                 "extensions": [".js", ".jsx"]
             }
         ],
-        "react/function-component-definition": 0,
-        "arrow-body-style": 0,
-        "jsx-a11y/label-has-associated-control": 0,
-        "react/prop-types": 0,
-        "react-hooks/exhaustive-deps": 0,
+        "react/function-component-definition": "off",
+        "arrow-body-style": "off",
+        "jsx-a11y/label-has-associated-control": "off",
+        "react/prop-types": "off",
+        "react-hooks/exhaustive-deps": "off",
         "no-unused-vars": "warn",
         "no-unreachable": "warn",
         "prefer-const": "warn",
-        "no-unused-expressions": "off"
+        "no-unused-expressions": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/button-has-type": "off"
     }
 }

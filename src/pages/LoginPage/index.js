@@ -1,23 +1,25 @@
 import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { useForm } from 'react-hook-form'
+
 import { useAuthContext } from '../../contexts/AuthContext'
+import Button from './Button'
 import Input from './Input'
 
 const LoginPage = () => {
+    const { register, handleSubmit } = useForm()
     const { signin } = useAuthContext()
     const [loading, setLoading] = useState(false)
 
-    const handleSignin = async () => {
+    const onSubmit = async ({ email, password }) => {
         setLoading(true)
-        const response = await signin()
+        const response = await signin(email, password)
         !response[0] && setLoading(false)
     }
 
     return (
         <div className="h-screen flex justify-center items-center">
-            <div className="bg-white rounded-lg w-2/5 px-16 py-16">
-                <form>
+            <div className="bg-white rounded-lg w-full max-w-sm py-16 px-5">
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex font-bold justify-center">
                         <img
                             className="h-20 w-20"
@@ -28,32 +30,41 @@ const LoginPage = () => {
                     <h2 className="text-3xl text-center text-gray-700 mb-4">
                         Login Form
                     </h2>
-                    <Input type="username" />
-                    <Input type="password" />
-                    <a
-                        href="/"
-                        className="text-xs text-green-400 hover:text-green-500 float-right mb-4"
-                    >
-                        Forgot Password?
-                    </a>
-                    <button
-                        type="button"
-                        className="w-full py-2 rounded-full bg-green-600 text-gray-100  focus:outline-none"
-                        onClick={handleSignin}
-                        disabled={loading}
-                    >
-                        {loading && (
-                            <FontAwesomeIcon
-                                icon={faSpinner}
-                                className="animate-spin"
-                                style={{
-                                    marginRight: 10,
-                                    marginLeft: -26,
-                                }}
+                    <Input type="email" register={register} />
+                    <Input type="password" register={register} />
+                    <br />
+                    <Button text="Log in" loading={loading} />
+
+                    {process.env.NODE_ENV === 'development' && (
+                        <>
+                            <div className="text-center pb-5 pt-10">
+                                [Dev Mode Quick Logins]
+                            </div>
+                            <Button
+                                text="Log in as admin"
+                                loading={loading}
+                                type="button"
+                                className="mb-5"
+                                onClick={() =>
+                                    onSubmit({
+                                        email: 'admin@gmail.com',
+                                        password: 'password',
+                                    })
+                                }
                             />
-                        )}
-                        Log in
-                    </button>
+                            <Button
+                                text="Log in as employee"
+                                loading={loading}
+                                type="button"
+                                onClick={() =>
+                                    onSubmit({
+                                        email: 'employee@gmail.com',
+                                        password: 'password',
+                                    })
+                                }
+                            />
+                        </>
+                    )}
                 </form>
             </div>
         </div>

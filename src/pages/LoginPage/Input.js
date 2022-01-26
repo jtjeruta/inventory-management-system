@@ -65,7 +65,7 @@ const RootContainer = styled.div`
     }
 `
 
-const Input = ({ type }) => {
+const Input = ({ type, register }) => {
     const [isFocused, setIsFocused] = useState(false)
     const [hasContent, setHasContent] = useState(false)
 
@@ -81,21 +81,22 @@ const Input = ({ type }) => {
             style={{ gridTemplateColumns: '7% 93%' }}
         >
             <div className="i">
-                {type === 'username' ? (
+                {type === 'email' ? (
                     <FontAwesomeIcon icon={faUser} />
                 ) : (
                     <FontAwesomeIcon icon={faLock} />
                 )}
             </div>
             <div className="div">
-                <h5>{type === 'username' ? 'Username' : 'Password'}</h5>
+                <h5>{type === 'email' ? 'Email' : 'Password'}</h5>
                 <input
-                    type={type === 'username' ? 'text' : 'password'}
+                    type={type === 'email' ? 'text' : 'password'}
                     className="absolute w-full h-full py-2 px-3 outline-none inset-0 text-gray-700"
                     style={{ background: 'none' }}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     onChange={(e) => handleChange(e.target.value)}
+                    {...register(type)}
                 />
             </div>
         </RootContainer>
