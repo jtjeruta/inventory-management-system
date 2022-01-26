@@ -1,10 +1,17 @@
-import React, { createContext, useContext, useMemo, useState } from 'react'
+import React, {
+    createContext,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react'
 import {
     getAuth as getFirebaseAuth,
     signInWithEmailAndPassword,
     signOut,
 } from 'firebase/auth'
 import { getFirestore, doc, getDoc } from 'firebase/firestore'
+import localforage from 'localforage'
 
 import { useAppContext } from './AppContext'
 
@@ -12,7 +19,29 @@ const AuthContext = createContext()
 
 const AuthContextProvider = ({ children }) => {
     const AppContext = useAppContext()
+    const [authenticating, setAuthenticating] = useState(false)
     const [user, setUser] = useState(null)
+
+    useEffect(() => {
+        const init = async () => {
+            setAuthenticating(true)
+
+            try {
+                const localUser = await localforage.getItem('user')
+                setUser(localUser)
+            } catch (_) {
+                AppContext.addNotification({
+                    type: 'error',
+                    title: 'Authentication failed.',
+                    content: 'Please contact support.',
+                })
+            }
+
+            setAuthenticating(false)
+        }
+
+        init()
+    }, [])
 
     const getAuth = () => {
         try {
@@ -65,15 +94,7 @@ const AuthContextProvider = ({ children }) => {
                 throw new Error('user details not found')
             }
 
-            setUser({ ...loginUser, ...docSnap.data() })
-
-            AppContext.addNotification({
-                type: 'success',
-                title: 'Hi!',
-                content: 'Welcome back.',
-            })
-
-            return [true, loginUser]
+            loginUser = { ...loginUser, ...docSnap.data() }
         } catch (error) {
             AppContext.addNotification({
                 type: 'error',
@@ -83,6 +104,26 @@ const AuthContextProvider = ({ children }) => {
 
             return [false]
         }
+
+        try {
+            await localforage.setItem('user', loginUser)
+        } catch (_) {
+            AppContext.addNotification({
+                type: 'error',
+                title: 'Failed to save user to storage.',
+                content: 'Please contact support.',
+            })
+        }
+
+        setUser(loginUser)
+
+        AppContext.addNotification({
+            type: 'success',
+            title: `Hi ${loginUser.firstName}!`,
+            content: 'Welcome back.',
+        })
+
+        return [true, loginUser]
     }
 
     const signout = async () => {
@@ -92,8 +133,6 @@ const AuthContextProvider = ({ children }) => {
 
         try {
             await signOut(auth)
-            setUser(null)
-            return [true]
         } catch (error) {
             AppContext.addNotification({
                 type: 'error',
@@ -103,6 +142,19 @@ const AuthContextProvider = ({ children }) => {
 
             return [false]
         }
+
+        try {
+            await localforage.removeItem('user')
+        } catch (_) {
+            AppContext.addNotification({
+                type: 'error',
+                title: 'Failed to delete user from storage.',
+                content: 'Please contact support.',
+            })
+        }
+
+        setUser(null)
+        return [true]
     }
 
     const value = useMemo(
@@ -110,8 +162,9 @@ const AuthContextProvider = ({ children }) => {
             signin,
             signout,
             user,
+            authenticating,
         }),
-        [user]
+        [user, authenticating]
     )
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

@@ -33,7 +33,11 @@ function AppRoutes() {
 }
 
 function AppContent() {
-    const { user } = useAuthContext()
+    const { user, authenticating } = useAuthContext()
+
+    if (authenticating) {
+        return <p>Authenticating...</p>
+    }
 
     return (
         <>
