@@ -1,0 +1,22 @@
+# pull official base image
+FROM node:16-bullseye
+
+# set working directory
+WORKDIR /app
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install app dependencies
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm i
+
+# Fix node_modules permission
+RUN chown node:node node_modules
+
+# add app
+COPY . ./
+
+# start app
+CMD ["npm", "start"]
