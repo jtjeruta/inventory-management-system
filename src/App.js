@@ -8,6 +8,7 @@ import NotificationList from './components/NotificationList'
 import NotFoundPage from './pages/NotFoundPage'
 import AuthenticatedRoutes from './routes/authenticated'
 import UnAuthenticatedRoutes from './routes/unAuthenticated'
+import LoadingScreen from './components/LoadingScreen'
 
 function AppRoutes() {
     const { user } = useAuthContext()
@@ -32,14 +33,11 @@ function AppRoutes() {
 }
 
 function AppContent() {
-    const { user, authenticating } = useAuthContext()
-
-    if (authenticating) {
-        return <p>Authenticating...</p>
-    }
+    const { user } = useAuthContext()
 
     return (
         <>
+            <LoadingScreen />
             <NotificationList />
             <BrowserRouter>
                 {user ? (
