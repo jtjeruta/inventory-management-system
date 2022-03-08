@@ -1,9 +1,9 @@
 import React, {
     createContext,
     useContext,
-    useEffect,
     useMemo,
     useState,
+    useEffect,
 } from 'react'
 import {
     getAuth as getFirebaseAuth,
@@ -11,9 +11,9 @@ import {
     signOut,
 } from 'firebase/auth'
 import { getFirestore, doc, getDoc } from 'firebase/firestore'
-import localforage from 'localforage'
 
 import { useAppContext } from './AppContext'
+import { initFirebase } from '../lib/firebase'
 
 const AuthContext = createContext()
 
@@ -22,48 +22,51 @@ const AuthContextProvider = ({ children }) => {
     const [authenticating, setAuthenticating] = useState(false)
     const [user, setUser] = useState(null)
 
-    useEffect(() => {
-        const init = async () => {
-            setAuthenticating(true)
+    initFirebase()
 
-            try {
-                const localUser = await localforage.getItem('user')
-                setUser(localUser)
-            } catch (_) {
-                AppContext.addNotification({
-                    type: 'error',
-                    title: 'Authentication failed.',
-                    content: 'Please contact support.',
-                })
+    const auth = getFirebaseAuth()
+    const db = getFirestore()
+
+    const getUserDetails = async (id) => {
+        try {
+            const docSnap = await getDoc(doc(db, 'user-details', id))
+
+            if (!docSnap.exists()) {
+                throw new Error('user details not found')
             }
 
-            setAuthenticating(false)
-        }
-
-        init()
-    }, [])
-
-    const getAuth = () => {
-        try {
-            const auth = getFirebaseAuth()
-            return auth
+            return docSnap.data()
         } catch (error) {
             AppContext.addNotification({
                 type: 'error',
-                title: 'Authentication failed.',
-                content: 'Please contact support.',
+                title: 'Something went wrong.',
+                content: 'Please try again later.',
             })
 
             return null
         }
     }
 
+    // Listen to onAuthStateChanged
+    useEffect(() => {
+        setAuthenticating(true)
+
+        auth.onAuthStateChanged(async (authUser) => {
+            if (authUser) {
+                const userDetails = await getUserDetails(authUser.uid)
+                if (!userDetails) return
+                setUser({
+                    id: authUser.uid,
+                    email: authUser.email,
+                    ...userDetails,
+                })
+            }
+
+            setAuthenticating(false)
+        })
+    }, [])
+
     const signin = async (email, password) => {
-        const auth = getAuth()
-        const db = getFirestore()
-
-        if (!auth) return [false]
-
         let loginUser = null
 
         try {
@@ -87,39 +90,15 @@ const AuthContextProvider = ({ children }) => {
             return [false]
         }
 
-        try {
-            const docSnap = await getDoc(doc(db, 'user-details', loginUser.id))
+        const userDetails = await getUserDetails(loginUser.id)
 
-            if (!docSnap.exists()) {
-                throw new Error('user details not found')
-            }
+        if (!userDetails) return [false]
 
-            loginUser = { ...loginUser, ...docSnap.data() }
-        } catch (error) {
-            AppContext.addNotification({
-                type: 'error',
-                title: 'Something went wrong.',
-                content: 'Please try again later.',
-            })
-
-            return [false]
-        }
-
-        try {
-            await localforage.setItem('user', loginUser)
-        } catch (_) {
-            AppContext.addNotification({
-                type: 'error',
-                title: 'Failed to save user to storage.',
-                content: 'Please contact support.',
-            })
-        }
-
-        setUser(loginUser)
+        setUser({ ...loginUser, ...userDetails })
 
         AppContext.addNotification({
             type: 'success',
-            title: `Hi ${loginUser.firstName}!`,
+            title: `Hi ${userDetails.firstName}!`,
             content: 'Welcome back.',
         })
 
@@ -127,10 +106,6 @@ const AuthContextProvider = ({ children }) => {
     }
 
     const signout = async () => {
-        const auth = getAuth()
-
-        if (!auth) return [false]
-
         try {
             await signOut(auth)
         } catch (error) {
@@ -141,16 +116,6 @@ const AuthContextProvider = ({ children }) => {
             })
 
             return [false]
-        }
-
-        try {
-            await localforage.removeItem('user')
-        } catch (_) {
-            AppContext.addNotification({
-                type: 'error',
-                title: 'Failed to delete user from storage.',
-                content: 'Please contact support.',
-            })
         }
 
         setUser(null)

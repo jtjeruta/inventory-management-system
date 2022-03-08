@@ -2,7 +2,6 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { AppContextProvider } from './contexts/AppContext'
-import { FirebaseContextProvider } from './contexts/FirebaseContext'
 import { AuthContextProvider, useAuthContext } from './contexts/AuthContext'
 import DefaultLayout from './layouts/DefaultLayout'
 import NotificationList from './components/NotificationList'
@@ -58,11 +57,9 @@ function AppContent() {
 function App() {
     return (
         <AppContextProvider>
-            <FirebaseContextProvider>
-                <AuthContextProvider>
-                    <AppContent />
-                </AuthContextProvider>
-            </FirebaseContextProvider>
+            <AuthContextProvider>
+                <AppContent />
+            </AuthContextProvider>
         </AppContextProvider>
     )
 }
