@@ -5,7 +5,7 @@ const NavBarTab = ({ active, navbarKey, hrefLink }) => {
     const tabCss = 'inline-block py-3 px-4 font-semibold'
     const unselectedTabCss = ' bg-neutral-700 text-white'
     const selectedTabCss =
-        ' bg-white text-black border-l border-t border-r rounded-t'
+        ' bg-slate-300 border-slate-300 text-black border-l border-t border-r rounded-t'
 
     return (
         <li className="-mb-px mr-1">
