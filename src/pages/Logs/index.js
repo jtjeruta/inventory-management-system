@@ -1,5 +1,4 @@
 import React from 'react'
-import AdminNavBar from '../../components/AdminNavBar'
 
 const AdminPage = () => {
     const [contentState, setContentState] = React.useState(1)
@@ -7,9 +6,6 @@ const AdminPage = () => {
     const setContent2 = () => setContentState(2)
     return (
         <div>
-            <div>
-                <AdminNavBar activeKey="Logs" />
-            </div>
             <div className="w-full h-full bg-slate-300">
                 <div className="inline-block">
                     <button
