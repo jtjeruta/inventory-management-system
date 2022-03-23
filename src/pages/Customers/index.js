@@ -42,7 +42,7 @@ const Content1 = () => {
         customerAddress,
     }) => {
         setLoading(true)
-        const response = await customerAdd(
+        await customerAdd(
             customerName,
             customerContactNumber,
             customerEmail,

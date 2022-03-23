@@ -37,16 +37,22 @@ const Content1 = () => {
     const { productAdd } = useAuthContext()
     const onSubmit = async ({
         productName,
-        productCost,
+        productPrice,
         productResellPrice,
         productMarkup,
+        productQuantity,
+        productSKU,
+        productBrand,
     }) => {
         setLoading(true)
-        const response = await productAdd(
+        await productAdd(
             productName,
-            productCost,
+            productPrice,
             productResellPrice,
-            productMarkup
+            productMarkup,
+            productQuantity,
+            productSKU,
+            productBrand
         )
         document.getElementById('add_product_form').reset()
         setLoading(false)
@@ -68,8 +74,8 @@ const Content1 = () => {
                             register={register}
                         />
                         <SimpleInput
-                            inputID="productCost"
-                            inputName="Cost of Product"
+                            inputID="productPrice"
+                            inputName="Price of Product"
                             inputType="text"
                             isRequired
                             register={register}
@@ -78,12 +84,33 @@ const Content1 = () => {
                             inputID="productResellPrice"
                             inputName="Resell Price"
                             inputType="text"
-                            isRequired
+                            isRequired={false}
                             register={register}
                         />
                         <SimpleInput
                             inputID="productMarkup"
                             inputName="Markup (Interest)"
+                            inputType="text"
+                            isRequired={false}
+                            register={register}
+                        />
+                        <SimpleInput
+                            inputID="productQuantity"
+                            inputName="Quantity"
+                            inputType="number"
+                            isRequired
+                            register={register}
+                        />
+                        <SimpleInput
+                            inputID="productSKU"
+                            inputName="SKU"
+                            inputType="number"
+                            isRequired
+                            register={register}
+                        />
+                        <SimpleInput
+                            inputID="productBrand"
+                            inputName="Brand Name"
                             inputType="text"
                             isRequired
                             register={register}

@@ -42,7 +42,7 @@ const Content1 = () => {
         vendorAddress,
     }) => {
         setLoading(true)
-        const response = await vendorAdd(
+        await vendorAdd(
             vendorName,
             vendorContactNumber,
             vendorEmail,

@@ -38,7 +38,7 @@ const Content1 = () => {
     const { soAdd } = useAuthContext()
     const onSubmit = async ({ soCustomer, soProduct, soRemarks }) => {
         setLoading(true)
-        const response = await soAdd(soCustomer, soProduct, soRemarks)
+        await soAdd(soCustomer, soProduct, soRemarks)
         document.getElementById('add_so_form').reset()
         setLoading(false)
     }

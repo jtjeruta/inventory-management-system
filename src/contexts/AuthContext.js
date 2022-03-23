@@ -145,7 +145,6 @@ const AuthContextProvider = ({ children }) => {
             }
             addDoc(collection(db, 'vendor'), vendorAddChecker)
         } catch (error) {
-            console.log(error)
             AppContext.addNotification({
                 type: 'error',
                 title: 'Something went wrong.',
@@ -165,21 +164,26 @@ const AuthContextProvider = ({ children }) => {
     }
     const productAdd = async (
         productName,
-        productCost,
+        productPrice,
         productResellPrice,
-        productMarkup
+        productMarkup,
+        productQuantity,
+        productSKU,
+        productBrand
     ) => {
         let productAddChecker = null
         try {
             productAddChecker = {
                 productName,
-                productCost,
+                productPrice,
                 productResellPrice,
                 productMarkup,
+                productQuantity,
+                productSKU,
+                productBrand,
             }
             addDoc(collection(db, 'product'), productAddChecker)
         } catch (error) {
-            console.log(error)
             AppContext.addNotification({
                 type: 'error',
                 title: 'Something went wrong.',
@@ -213,7 +217,6 @@ const AuthContextProvider = ({ children }) => {
             }
             addDoc(collection(db, 'customer'), customerAddChecker)
         } catch (error) {
-            console.log(error)
             AppContext.addNotification({
                 type: 'error',
                 title: 'Something went wrong.',
@@ -231,19 +234,28 @@ const AuthContextProvider = ({ children }) => {
 
         return [true]
     }
-    const poAdd = async (poVendor, poProduct, poRemarks) => {
+    const poAdd = async (
+        poVendor,
+        poProduct,
+        poChequeNumber,
+        poChequeDate,
+        poChequeDateReceived,
+        poDeliveryDate,
+        poReceivedBy
+    ) => {
         let poAddChecker = null
-        const poDate = new Date()
         try {
             poAddChecker = {
                 poVendor,
                 poProduct,
-                poRemarks,
-                poDate,
+                poChequeNumber,
+                poChequeDate,
+                poChequeDateReceived,
+                poDeliveryDate,
+                poReceivedBy,
             }
             addDoc(collection(db, 'purchaseOrder'), poAddChecker)
         } catch (error) {
-            console.log(error)
             AppContext.addNotification({
                 type: 'error',
                 title: 'Something went wrong.',
@@ -275,7 +287,6 @@ const AuthContextProvider = ({ children }) => {
             }
             addDoc(collection(db, 'salesOrder'), soAddChecker)
         } catch (error) {
-            console.log(error)
             AppContext.addNotification({
                 type: 'error',
                 title: 'Something went wrong.',

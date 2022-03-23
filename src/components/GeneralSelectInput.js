@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { useForm } from 'react-hook-form'
 import { useAuthContext } from '../contexts/AuthContext'
 
 const RootContainer = styled.div`
@@ -105,7 +104,7 @@ const SelectInput = ({
                         &nbsp;
                     </option>
                     {collectionMap &&
-                        collectionMap.map((val, id) => (
+                        collectionMap.map((val) => (
                             <option key={val[0]} value={val[0]}>
                                 {val[1]}
                             </option>

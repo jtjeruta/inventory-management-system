@@ -4,6 +4,7 @@ import { useAuthContext } from '../../contexts/AuthContext'
 import Button from '../../components/SubmitButton'
 import SimpleInput from '../../components/GeneralInput'
 import SelectInput from '../../components/GeneralSelectInput'
+import DateInput from '../../components/GeneralDateInput'
 
 const AdminPage = () => {
     const [contentState, setContentState] = useState(1)
@@ -36,9 +37,25 @@ const Content1 = () => {
     const { register, handleSubmit } = useForm()
     const [loading, setLoading] = useState(false)
     const { poAdd } = useAuthContext()
-    const onSubmit = async ({ poVendor, poProduct, poRemarks }) => {
+    const onSubmit = async ({
+        poVendor,
+        poProduct,
+        poChequeNumber,
+        poChequeDate,
+        poChequeDateReceived,
+        poDeliveryDate,
+        poReceivedBy,
+    }) => {
         setLoading(true)
-        const response = await poAdd(poVendor, poProduct, poRemarks)
+        await poAdd(
+            poVendor,
+            poProduct,
+            poChequeNumber,
+            poChequeDate,
+            poChequeDateReceived,
+            poDeliveryDate,
+            poReceivedBy
+        )
         document.getElementById('add_po_form').reset()
         setLoading(false)
     }
@@ -65,10 +82,35 @@ const Content1 = () => {
                             register={register}
                         />
                         <SimpleInput
-                            inputID="poRemarks"
-                            inputName="Remarks"
+                            inputID="poChequeNumber"
+                            inputName="Cheque Number"
+                            inputType="number"
+                            isRequired
+                            register={register}
+                        />
+                        <DateInput
+                            inputID="poChequeDate"
+                            inputName="Cheque Date"
+                            isRequired
+                            register={register}
+                        />
+                        <DateInput
+                            inputID="poChequeDateReceived"
+                            inputName="Cheque Date Received"
+                            isRequired
+                            register={register}
+                        />
+                        <DateInput
+                            inputID="poDeliveryDate"
+                            inputName="Date of Delivery"
+                            isRequired
+                            register={register}
+                        />
+                        <SimpleInput
+                            inputID="poReceivedBy"
+                            inputName="Received by"
                             inputType="text"
-                            isRequired={false}
+                            isRequired
                             register={register}
                         />
                         <Button
