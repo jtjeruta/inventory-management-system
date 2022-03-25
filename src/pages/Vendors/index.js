@@ -34,7 +34,7 @@ const AdminPage = () => {
 const Content1 = () => {
     const { register, handleSubmit } = useForm()
     const [loading, setLoading] = useState(false)
-    const { vendorAdd } = useAuthContext()
+    const { standardAddMethod } = useAuthContext()
     const onSubmit = async ({
         vendorName,
         vendorContactNumber,
@@ -42,11 +42,11 @@ const Content1 = () => {
         vendorAddress,
     }) => {
         setLoading(true)
-        await vendorAdd(
-            vendorName,
-            vendorContactNumber,
-            vendorEmail,
-            vendorAddress
+        await standardAddMethod(
+            'vendor',
+            { vendorName, vendorContactNumber, vendorEmail, vendorAddress },
+            'Vendor',
+            vendorName
         )
         document.getElementById('add_vendor_form').reset()
         setLoading(false)

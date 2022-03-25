@@ -36,7 +36,7 @@ const AdminPage = () => {
 const Content1 = () => {
     const { register, handleSubmit } = useForm()
     const [loading, setLoading] = useState(false)
-    const { poAdd } = useAuthContext()
+    const { standardAddMethod } = useAuthContext()
     const onSubmit = async ({
         poVendor,
         poProduct,
@@ -47,14 +47,18 @@ const Content1 = () => {
         poReceivedBy,
     }) => {
         setLoading(true)
-        await poAdd(
-            poVendor,
-            poProduct,
-            poChequeNumber,
-            poChequeDate,
-            poChequeDateReceived,
-            poDeliveryDate,
-            poReceivedBy
+        await standardAddMethod(
+            'purchaseOrder',
+            {
+                poVendor,
+                poProduct,
+                poChequeNumber,
+                poChequeDate,
+                poChequeDateReceived,
+                poDeliveryDate,
+                poReceivedBy,
+            },
+            'Product Order'
         )
         document.getElementById('add_po_form').reset()
         setLoading(false)

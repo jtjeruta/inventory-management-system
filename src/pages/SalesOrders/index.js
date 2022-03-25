@@ -35,10 +35,16 @@ const AdminPage = () => {
 const Content1 = () => {
     const { register, handleSubmit } = useForm()
     const [loading, setLoading] = useState(false)
-    const { soAdd } = useAuthContext()
+    const { standardAddMethod, user } = useAuthContext()
     const onSubmit = async ({ soCustomer, soProduct, soRemarks }) => {
         setLoading(true)
-        await soAdd(soCustomer, soProduct, soRemarks)
+        const soDate = new Date()
+        const soSalesRep = user.id
+        await standardAddMethod(
+            'salesOrder',
+            { soCustomer, soProduct, soRemarks, soDate, soSalesRep },
+            'Sales Order'
+        )
         document.getElementById('add_so_form').reset()
         setLoading(false)
     }

@@ -34,7 +34,7 @@ const AdminPage = () => {
 const Content1 = () => {
     const { register, handleSubmit } = useForm()
     const [loading, setLoading] = useState(false)
-    const { customerAdd } = useAuthContext()
+    const { standardAddMethod } = useAuthContext()
     const onSubmit = async ({
         customerName,
         customerContactNumber,
@@ -42,11 +42,16 @@ const Content1 = () => {
         customerAddress,
     }) => {
         setLoading(true)
-        await customerAdd(
-            customerName,
-            customerContactNumber,
-            customerEmail,
-            customerAddress
+        await standardAddMethod(
+            'customer',
+            {
+                customerName,
+                customerContactNumber,
+                customerEmail,
+                customerAddress,
+            },
+            'Customer',
+            customerName
         )
         document.getElementById('add_customer_form').reset()
         setLoading(false)

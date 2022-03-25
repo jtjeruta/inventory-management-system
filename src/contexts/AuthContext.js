@@ -18,6 +18,9 @@ import {
     addDoc,
     collection,
     collectionGroup,
+    where,
+    query,
+    updateDoc,
 } from 'firebase/firestore'
 
 import { useAppContext } from './AppContext'
@@ -58,11 +61,40 @@ const AuthContextProvider = ({ children }) => {
         try {
             const querySnap = await getDocs(collectionGroup(db, id))
             const map = []
-            querySnap.forEach((docIteration) => {
-                map.push([docIteration.id, docIteration.data()[name]])
-            })
+            if (name === undefined) {
+                querySnap.forEach((docIteration) => {
+                    map.push([docIteration.id, docIteration.data()])
+                })
+            } else {
+                querySnap.forEach((docIteration) => {
+                    map.push([docIteration.id, docIteration.data()[name]])
+                })
+            }
             return map
         } catch (error) {
+            AppContext.addNotification({
+                type: 'error',
+                title: 'Something went wrong.',
+                content: 'Please try again later.',
+            })
+            return null
+        }
+    }
+    const updateStatus = async (collectionName, id, name, status) => {
+        try {
+            let notifStatusText = status ? 'enabled' : 'disabled'
+            const docRef = doc(db, collectionName, id)
+            updateDoc(docRef, {
+                isEnabled: status,
+            })
+            AppContext.addNotification({
+                type: 'success',
+                title: `Category ${notifStatusText}`,
+                content: `The ${name} Category has been ${notifStatusText}`,
+            })
+            return [true]
+        } catch (error) {
+            console.log(id)
             AppContext.addNotification({
                 type: 'error',
                 title: 'Something went wrong.',
@@ -129,21 +161,16 @@ const AuthContextProvider = ({ children }) => {
 
         return [true, loginUser]
     }
-    const vendorAdd = async (
-        vendorName,
-        vendorContactNumber,
-        vendorEmail,
-        vendorAddress
+    const standardAddMethod = async (
+        collectionName,
+        fields,
+        notifTextGeneral,
+        notifTextSpecific
     ) => {
-        let vendorAddChecker = null
+        let titleText = ''
+        let contentText = ''
         try {
-            vendorAddChecker = {
-                vendorName,
-                vendorContactNumber,
-                vendorEmail,
-                vendorAddress,
-            }
-            addDoc(collection(db, 'vendor'), vendorAddChecker)
+            addDoc(collection(db, collectionName), fields)
         } catch (error) {
             AppContext.addNotification({
                 type: 'error',
@@ -153,156 +180,74 @@ const AuthContextProvider = ({ children }) => {
 
             return [false]
         }
+        if (notifTextGeneral === undefined) {
+            titleText = 'Adding Successful!'
+        } else {
+            titleText = `Successfully added ${notifTextGeneral}!`
+        }
+        if (notifTextSpecific === undefined) {
+            contentText = 'Data successfully stored to the database'
+        } else {
+            contentText = `${notifTextSpecific} has been added`
+        }
 
         AppContext.addNotification({
             type: 'success',
-            title: 'Successfully added Vendor!',
-            content: `${vendorName} has been added`,
+            title: titleText,
+            content: contentText,
         })
 
         return [true]
     }
-    const productAdd = async (
-        productName,
-        productPrice,
-        productResellPrice,
-        productMarkup,
-        productQuantity,
-        productSKU,
-        productBrand
-    ) => {
-        let productAddChecker = null
+
+    const productCategoryAdd = async (productCategoryName) => {
+        let productCategoryAddChecker = null
+        const productCategoryNameChecker = productCategoryName.toLowerCase()
+        const isEnabled = true
         try {
-            productAddChecker = {
-                productName,
-                productPrice,
-                productResellPrice,
-                productMarkup,
-                productQuantity,
-                productSKU,
-                productBrand,
+            productCategoryAddChecker = {
+                productCategoryName,
+                productCategoryNameChecker,
+                isEnabled,
             }
-            addDoc(collection(db, 'product'), productAddChecker)
+            return getDocs(
+                query(
+                    collection(db, 'productCategory'),
+                    where(
+                        'productCategoryNameChecker',
+                        '==',
+                        productCategoryNameChecker
+                    )
+                )
+            ).then((data) => {
+                if (data.docs.length > 0) {
+                    AppContext.addNotification({
+                        type: 'error',
+                        title: `Failed to add ${productCategoryName}`,
+                        content: 'That Category already exists!',
+                    })
+                    return [false]
+                }
+                addDoc(
+                    collection(db, 'productCategory'),
+                    productCategoryAddChecker
+                )
+                AppContext.addNotification({
+                    type: 'success',
+                    title: 'Successfully added Product Category!',
+                    content: `${productCategoryName} Category has been added`,
+                })
+                return [true]
+            })
         } catch (error) {
             AppContext.addNotification({
                 type: 'error',
-                title: 'Something went wrong.',
+                title: 'Something went wrong.2',
                 content: 'Please try again later.',
             })
 
             return [false]
         }
-
-        AppContext.addNotification({
-            type: 'success',
-            title: 'Successfully added Product!',
-            content: `${productName} has been added`,
-        })
-
-        return [true]
-    }
-    const customerAdd = async (
-        customerName,
-        customerContactNumber,
-        customerEmail,
-        customerAddress
-    ) => {
-        let customerAddChecker = null
-        try {
-            customerAddChecker = {
-                customerName,
-                customerContactNumber,
-                customerEmail,
-                customerAddress,
-            }
-            addDoc(collection(db, 'customer'), customerAddChecker)
-        } catch (error) {
-            AppContext.addNotification({
-                type: 'error',
-                title: 'Something went wrong.',
-                content: 'Please try again later.',
-            })
-
-            return [false]
-        }
-
-        AppContext.addNotification({
-            type: 'success',
-            title: 'Successfully added Customer!',
-            content: `${customerName} has been added`,
-        })
-
-        return [true]
-    }
-    const poAdd = async (
-        poVendor,
-        poProduct,
-        poChequeNumber,
-        poChequeDate,
-        poChequeDateReceived,
-        poDeliveryDate,
-        poReceivedBy
-    ) => {
-        let poAddChecker = null
-        try {
-            poAddChecker = {
-                poVendor,
-                poProduct,
-                poChequeNumber,
-                poChequeDate,
-                poChequeDateReceived,
-                poDeliveryDate,
-                poReceivedBy,
-            }
-            addDoc(collection(db, 'purchaseOrder'), poAddChecker)
-        } catch (error) {
-            AppContext.addNotification({
-                type: 'error',
-                title: 'Something went wrong.',
-                content: 'Please try again later.',
-            })
-
-            return [false]
-        }
-
-        AppContext.addNotification({
-            type: 'success',
-            title: 'Successfully added Product Order!',
-            content: `Purchase order has been logged`,
-        })
-
-        return [true]
-    }
-    const soAdd = async (soCustomer, soProduct, soRemarks) => {
-        let soAddChecker = null
-        const soDate = new Date()
-        const soSalesRep = user.id
-        try {
-            soAddChecker = {
-                soCustomer,
-                soProduct,
-                soRemarks,
-                soDate,
-                soSalesRep,
-            }
-            addDoc(collection(db, 'salesOrder'), soAddChecker)
-        } catch (error) {
-            AppContext.addNotification({
-                type: 'error',
-                title: 'Something went wrong.',
-                content: 'Please try again later.',
-            })
-
-            return [false]
-        }
-
-        AppContext.addNotification({
-            type: 'success',
-            title: 'Successfully added Sale Order!',
-            content: `Sale order has been logged`,
-        })
-
-        return [true]
     }
 
     const signout = async () => {
@@ -326,11 +271,9 @@ const AuthContextProvider = ({ children }) => {
         () => ({
             signin,
             signout,
-            vendorAdd,
-            productAdd,
-            customerAdd,
-            poAdd,
-            soAdd,
+            standardAddMethod,
+            productCategoryAdd,
+            updateStatus,
             user,
             authenticating,
             getDocsOfCollection,
