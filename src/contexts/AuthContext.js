@@ -5,15 +5,11 @@ import React, {
     useState,
     useEffect,
 } from 'react'
-import {
-    getAuth as getFirebaseAuth,
-    signInWithEmailAndPassword,
-    signOut,
-} from 'firebase/auth'
-import { getFirestore, doc, getDoc } from 'firebase/firestore'
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { doc, getDoc } from 'firebase/firestore'
 
 import { useAppContext } from './AppContext'
-import { initFirebase } from '../lib/firebase'
+import { auth, db } from '../lib/firebase'
 
 const AuthContext = createContext()
 
@@ -21,11 +17,6 @@ const AuthContextProvider = ({ children }) => {
     const AppContext = useAppContext()
     const [authenticating, setAuthenticating] = useState(false)
     const [user, setUser] = useState(null)
-
-    initFirebase()
-
-    const auth = getFirebaseAuth()
-    const db = getFirestore()
 
     const getUserDetails = async (id) => {
         try {
