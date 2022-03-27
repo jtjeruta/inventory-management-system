@@ -1,0 +1,52 @@
+{
+    "kind": "identitytoolkit#DownloadAccountResponse",
+    "users": [
+        {
+            "localId": "PLuDnjM3Ok5fUdORbGBuTqm6C3sm",
+            "createdAt": "1648355185533",
+            "lastLoginAt": "1648355185533",
+            "displayName": "",
+            "photoUrl": "",
+            "emailVerified": false,
+            "email": "employee@gmail.com",
+            "salt": "fakeSaltyb5DgffHguqRf30i7UEr",
+            "passwordHash": "fakeHash:salt=fakeSaltyb5DgffHguqRf30i7UEr:password=password",
+            "passwordUpdatedAt": 1648355185533,
+            "validSince": "1648355185",
+            "providerUserInfo": [
+                {
+                    "providerId": "password",
+                    "email": "employee@gmail.com",
+                    "federatedId": "employee@gmail.com",
+                    "rawId": "employee@gmail.com",
+                    "displayName": "",
+                    "photoUrl": ""
+                }
+            ]
+        },
+        {
+            "localId": "XzwQsJmeHIPBAUbDsGiHY4Lp0I55",
+            "createdAt": "1648354529742",
+            "lastLoginAt": "1648355321692",
+            "displayName": "",
+            "photoUrl": "",
+            "emailVerified": false,
+            "email": "admin@gmail.com",
+            "salt": "fakeSaltapp7YSvNBQzCAVHVmZ2W",
+            "passwordHash": "fakeHash:salt=fakeSaltapp7YSvNBQzCAVHVmZ2W:password=password",
+            "passwordUpdatedAt": 1648354529742,
+            "validSince": "1648354529",
+            "providerUserInfo": [
+                {
+                    "providerId": "password",
+                    "email": "admin@gmail.com",
+                    "federatedId": "admin@gmail.com",
+                    "rawId": "admin@gmail.com",
+                    "displayName": "",
+                    "photoUrl": ""
+                }
+            ],
+            "lastRefreshAt": "2022-03-27T04:28:41.692Z"
+        }
+    ]
+}

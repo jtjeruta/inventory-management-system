@@ -29,7 +29,8 @@
         "eject": "react-scripts eject",
         "lint": "eslint --max-warnings 0 \"src/**/*.js\"",
         "lint:fix": "npm run lint -- --fix",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "emulators": "firebase emulators:start --import ./src/seeds"
     },
     "eslintConfig": {
         "extends": [
