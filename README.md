@@ -53,7 +53,7 @@ These are some of the tech we'll be using.
 -   Open up a browser and view the firebase UI on
 
     ```
-     http://localhost:3001
+     http://localhost:4000
     ```
 
 -   Open up a new terminal and run the app
@@ -62,11 +62,11 @@ These are some of the tech we'll be using.
     npm start
     ```
 
-<!-- ## Installation with Docker (optional)
+## Installation with Docker (optional)
 
 This requires docker and docker compose to be installed.
 
--   Install dependencies once with
+-   Install dependencies once.
 
     ```bash
     npm i
@@ -80,8 +80,6 @@ This requires docker and docker compose to be installed.
     ```
 
 This command builds and starts the app for you.
-
---- -->
 
 <!-- -   Create a `.env` file in the root folder and add the following
 
