@@ -62,6 +62,13 @@ const AdminNavbar = () => {
                     >
                         Logs
                     </NavBarTab>
+                    <NavBarTab
+                        active={location.pathname === '/users'}
+                        navbarKey="Users"
+                        hrefLink="/users"
+                    >
+                        Users
+                    </NavBarTab>
                 </ul>
             </div>
             <div className="basis-1/4">

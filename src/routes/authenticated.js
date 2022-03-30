@@ -25,6 +25,10 @@ const routes = [
         path: '/logs',
         component: React.lazy(() => import('../pages/Logs')),
     },
+    {
+        path: '/users',
+        component: React.lazy(() => import('../pages/Users')),
+    },
 ]
 
 export default routes

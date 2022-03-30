@@ -36,6 +36,7 @@
         "no-unused-expressions": "off",
         "react/jsx-props-no-spreading": "off",
         "react/button-has-type": "off",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "no-undef": "warn"
     }
 }
