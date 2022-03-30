@@ -7,18 +7,42 @@
             "lastLoginAt": "1648355185533",
             "displayName": "",
             "photoUrl": "",
-            "emailVerified": false,
-            "email": "employee@gmail.com",
-            "salt": "fakeSaltyb5DgffHguqRf30i7UEr",
             "passwordHash": "fakeHash:salt=fakeSaltyb5DgffHguqRf30i7UEr:password=password",
-            "passwordUpdatedAt": 1648355185533,
-            "validSince": "1648355185",
+            "salt": "fakeSaltyb5DgffHguqRf30i7UEr",
+            "passwordUpdatedAt": 1648651807552,
             "providerUserInfo": [
                 {
                     "providerId": "password",
                     "email": "employee@gmail.com",
                     "federatedId": "employee@gmail.com",
                     "rawId": "employee@gmail.com",
+                    "displayName": "",
+                    "photoUrl": ""
+                }
+            ],
+            "validSince": "1648651807",
+            "email": "employee@gmail.com",
+            "emailVerified": false,
+            "disabled": false
+        },
+        {
+            "localId": "RHjI3bZZICK1CWo9XMMWBJiueQjR",
+            "createdAt": "1648651995282",
+            "lastLoginAt": "1648651995281",
+            "displayName": "",
+            "photoUrl": "",
+            "emailVerified": false,
+            "email": "employee2@gmail.com",
+            "salt": "fakeSaltJfgLHTKlkYd8lrS8iMqu",
+            "passwordHash": "fakeHash:salt=fakeSaltJfgLHTKlkYd8lrS8iMqu:password=password",
+            "passwordUpdatedAt": 1648651995282,
+            "validSince": "1648651995",
+            "providerUserInfo": [
+                {
+                    "providerId": "password",
+                    "email": "employee2@gmail.com",
+                    "federatedId": "employee2@gmail.com",
+                    "rawId": "employee2@gmail.com",
                     "displayName": "",
                     "photoUrl": ""
                 }
@@ -30,12 +54,9 @@
             "lastLoginAt": "1648355321692",
             "displayName": "",
             "photoUrl": "",
-            "emailVerified": false,
-            "email": "admin@gmail.com",
-            "salt": "fakeSaltapp7YSvNBQzCAVHVmZ2W",
             "passwordHash": "fakeHash:salt=fakeSaltapp7YSvNBQzCAVHVmZ2W:password=password",
-            "passwordUpdatedAt": 1648354529742,
-            "validSince": "1648354529",
+            "salt": "fakeSaltapp7YSvNBQzCAVHVmZ2W",
+            "passwordUpdatedAt": 1648651807553,
             "providerUserInfo": [
                 {
                     "providerId": "password",
@@ -46,7 +67,10 @@
                     "photoUrl": ""
                 }
             ],
-            "lastRefreshAt": "2022-03-27T04:28:41.692Z"
+            "validSince": "1648651807",
+            "email": "admin@gmail.com",
+            "emailVerified": false,
+            "disabled": false
         }
     ]
 }
