@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import { AppContextProvider } from './contexts/AppContext'
 import { AuthContextProvider, useAuthContext } from './contexts/AuthContext'
@@ -28,7 +28,10 @@ function AppRoutes() {
                     }
                 />
             ))}
-            <Route path="*" element={<NotFoundPage />} />
+            <Route
+                path="*"
+                element={user ? <NotFoundPage /> : <Navigate to="/" />}
+            />
         </Routes>
     )
 }
