@@ -9,6 +9,7 @@ import NotFoundPage from './pages/NotFoundPage'
 import AuthenticatedRoutes from './routes/authenticated'
 import UnAuthenticatedRoutes from './routes/unAuthenticated'
 import LoadingScreen from './components/LoadingScreen'
+import { UsersContextProvider } from './contexts/UsersContext'
 
 function AppRoutes() {
     const { user } = useAuthContext()
@@ -56,7 +57,9 @@ function App() {
     return (
         <AppContextProvider>
             <AuthContextProvider>
-                <AppContent />
+                <UsersContextProvider>
+                    <AppContent />
+                </UsersContextProvider>
             </AuthContextProvider>
         </AppContextProvider>
     )
