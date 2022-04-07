@@ -7,7 +7,6 @@ import React, {
 } from 'react'
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import {
-    getFirestore,
     doc,
     getDoc,
     getDocs,
@@ -65,7 +64,7 @@ const AuthContextProvider = ({ children }) => {
                     Array.isArray(specificFieldName) &&
                     Array.isArray(specificFieldValue)
                 ) {
-                    let tempWhereArray = []
+                    const tempWhereArray = []
                     for (let i = 0; i < specificFieldName.length; i += 1) {
                         tempWhereArray.push(
                             where(
@@ -75,7 +74,6 @@ const AuthContextProvider = ({ children }) => {
                             )
                         )
                     }
-                    console.log(tempWhereArray)
                     querySnap = await getDocs(
                         query(collection(db, id), ...tempWhereArray)
                     )
@@ -238,7 +236,7 @@ const AuthContextProvider = ({ children }) => {
         let titleText = ''
         let contentText = ''
         try {
-            doc(db, collectionName, id), fields
+            updateDoc(doc(db, collectionName, id), fields)
         } catch (error) {
             AppContext.addNotification({
                 type: 'error',

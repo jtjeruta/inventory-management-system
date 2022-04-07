@@ -73,7 +73,6 @@ const Content1 = () => {
         productQuantity,
         productSKU,
         productBrand,
-        productCategory,
         productSubcategory,
     }) => {
         setLoading(true)
@@ -103,8 +102,8 @@ const Content1 = () => {
                 const iconStyle =
                     'text-green-600 basis-1/12 hover:text-green-800'
                 data.forEach((key) => {
-                    let tempMap = key[1]
-                    let tempId = key[0]
+                    const tempMap = key[1]
+                    const tempId = key[0]
                     temp.push(
                         <li
                             id={tempId}
@@ -183,8 +182,8 @@ const Content1 = () => {
                 const iconStyle =
                     'text-green-600 basis-1/12 hover:text-green-800'
                 data.forEach((key) => {
-                    let tempMap = key[1]
-                    let tempId = key[0]
+                    const tempMap = key[1]
+                    const tempId = key[0]
                     temp.push(
                         <li
                             id={tempId}
@@ -242,7 +241,7 @@ const Content1 = () => {
 
     const onSubmitProductCategory = async ({ productCategoryName }) => {
         setLoading(true)
-        let tempChecker = productCategoryName.toLowerCase()
+        const tempChecker = productCategoryName.toLowerCase()
         await uniqueAddMethod(
             'productCategory',
             {
@@ -261,7 +260,7 @@ const Content1 = () => {
     }
     const onSubmitProductSubcategory = async ({ productCategoryName }) => {
         setLoading(true)
-        let tempChecker = productCategoryName.toLowerCase()
+        const tempChecker = productCategoryName.toLowerCase()
         await uniqueAddMethod(
             'productSubcategory',
             {
@@ -359,10 +358,6 @@ const Content1 = () => {
             getProductSubcategoryList()
         }
     }, [isSubcategory])
-
-    useEffect(() => {
-        console.log(selectedCategory)
-    }, [selectedCategory])
 
     return (
         <div className="bg-cyan-500 h-screen w-10/12 mt-8 p-2 align-top rounded-t-lg">
