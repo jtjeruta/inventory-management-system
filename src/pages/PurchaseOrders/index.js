@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useAuthContext } from '../../contexts/AuthContext'
+import Button from '../../components/SubmitButton'
+import SimpleInput from '../../components/GeneralInput'
+import SelectInput from '../../components/GeneralSelectInput'
+import DateInput from '../../components/GeneralDateInput'
 
 const AdminPage = () => {
-    const [contentState, setContentState] = React.useState(1)
+    const [contentState, setContentState] = useState(1)
     const setContent1 = () => setContentState(1)
     const setContent2 = () => setContentState(2)
     return (
         <div>
-            <div className="w-full h-full bg-slate-300">
-                <div className="inline-block">
+            <div className="w-full h-full bg-slate-300 flex flex-row">
+                <div className="">
                     <button
                         className="block box-border h-32 w-32 bg-cyan-500 mt-16 ml-10 py-10 px-10 font-semibold rounded-l-lg"
                         onClick={setContent1}
@@ -27,11 +33,101 @@ const AdminPage = () => {
     )
 }
 
-const Content1 = () => (
-    <div className="inline-block bg-cyan-500 h-screen w-10/12 mt-8 align-top rounded-t-lg text-center">
-        Content 1
-    </div>
-)
+const Content1 = () => {
+    const { register, handleSubmit } = useForm()
+    const [loading, setLoading] = useState(false)
+    const { standardAddMethod } = useAuthContext()
+    const onSubmit = async ({
+        poVendor,
+        poProduct,
+        poChequeNumber,
+        poChequeDate,
+        poChequeDateReceived,
+        poDeliveryDate,
+        poReceivedBy,
+    }) => {
+        setLoading(true)
+        await standardAddMethod(
+            'purchaseOrder',
+            {
+                poVendor,
+                poProduct,
+                poChequeNumber,
+                poChequeDate,
+                poChequeDateReceived,
+                poDeliveryDate,
+                poReceivedBy,
+            },
+            'Product Order'
+        )
+        document.getElementById('add_po_form').reset()
+        setLoading(false)
+    }
+
+    return (
+        <div className="bg-cyan-500 h-screen w-10/12 mt-8 p-2 align-top rounded-t-lg">
+            <div>
+                <div className="max-w-screen-md m-auto">
+                    <form id="add_po_form" onSubmit={handleSubmit(onSubmit)}>
+                        <SelectInput
+                            inputID="poVendor"
+                            collection="vendor"
+                            collectionKey="vendorName"
+                            inputName="Name"
+                            isRequired
+                            register={register}
+                        />
+                        <SelectInput
+                            inputID="poProduct"
+                            collection="product"
+                            collectionKey="productName"
+                            inputName="Product"
+                            isRequired
+                            register={register}
+                        />
+                        <SimpleInput
+                            inputID="poChequeNumber"
+                            inputName="Cheque Number"
+                            inputType="number"
+                            isRequired
+                            register={register}
+                        />
+                        <DateInput
+                            inputID="poChequeDate"
+                            inputName="Cheque Date"
+                            isRequired
+                            register={register}
+                        />
+                        <DateInput
+                            inputID="poChequeDateReceived"
+                            inputName="Cheque Date Received"
+                            isRequired
+                            register={register}
+                        />
+                        <DateInput
+                            inputID="poDeliveryDate"
+                            inputName="Date of Delivery"
+                            isRequired
+                            register={register}
+                        />
+                        <SimpleInput
+                            inputID="poReceivedBy"
+                            inputName="Received by"
+                            inputType="text"
+                            isRequired
+                            register={register}
+                        />
+                        <Button
+                            text="Add Purchase Order"
+                            loading={loading}
+                            className=""
+                        />
+                    </form>
+                </div>
+            </div>
+        </div>
+    )
+}
 const Content2 = () => (
     <div className="inline-block bg-teal-500 h-screen w-10/12 mt-8 align-top rounded-t-lg text-center">
         Content 2
