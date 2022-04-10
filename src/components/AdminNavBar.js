@@ -1,84 +1,95 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { useAuthContext } from '../contexts/AuthContext'
 import NavBarTab from './NavBarTab'
 
 const AdminNavbar = () => {
+    const navigate = useNavigate()
     const location = useLocation()
-    const { signout } = useAuthContext()
+    const { signout, user } = useAuthContext()
+
+    const links = [
+        {
+            text: 'Vendors',
+            active: location.pathname === '/',
+            onClick: () => navigate('/'),
+            roles: ['admin'],
+        },
+        {
+            text: 'Purchase Orders',
+            active:
+                user.role === 'admin'
+                    ? location.pathname === '/purchase-orders'
+                    : location.pathname === '/',
+            onClick: () =>
+                navigate(user.role === 'admin' ? '/purchase-orders' : '/'),
+            roles: ['admin', 'employee'],
+        },
+        {
+            text: 'Inventory',
+            active: location.pathname === '/inventory',
+            onClick: () => navigate('/inventory'),
+            roles: ['admin'],
+        },
+        {
+            text: 'Sales Orders',
+            active: location.pathname === '/sales-orders',
+            onClick: () => navigate('/sales-orders'),
+            roles: ['admin'],
+        },
+        {
+            text: 'Customers',
+            active: location.pathname === '/customers',
+            onClick: () => navigate('/customers'),
+            roles: ['admin'],
+        },
+        {
+            text: 'Logs',
+            active: location.pathname === '/logs',
+            onClick: () => navigate('/logs'),
+            roles: ['admin'],
+        },
+        {
+            text: 'Users',
+            active: location.pathname === '/users',
+            onClick: () => navigate('/users'),
+            roles: ['admin'],
+        },
+        {
+            text: 'Logout',
+            active: false,
+            onClick: () => signout(),
+            roles: ['admin', 'employee'],
+        },
+    ]
 
     return (
         <nav className="bg-neutral-700 flex">
-            <div className="basis-1/4">
-                <Link
-                    className="inline-block py-3 px-4 font-semibold text-white"
-                    to="/"
-                >
-                    Inventory Management System
-                </Link>
-            </div>
-            <div className="basis-2/4">
-                <ul className="flex place-content-center">
-                    <NavBarTab
-                        active={location.pathname === '/'}
-                        navbarKey="Vendors"
-                        hrefLink="/"
+            <div className="container flex flex-wrap justify-between items-center mx-auto">
+                <div>
+                    <Link
+                        className="inline-block py-3 px-4 font-semibold text-white"
+                        to="/"
                     >
-                        Vendors
-                    </NavBarTab>
-                    <NavBarTab
-                        active={location.pathname === '/purchase-orders'}
-                        navbarKey="PurchaseOrders"
-                        hrefLink="/purchase-orders"
-                    >
-                        PurchaseOrders
-                    </NavBarTab>
-                    <NavBarTab
-                        active={location.pathname === '/inventory'}
-                        navbarKey="Inventory"
-                        hrefLink="/inventory"
-                    >
-                        Inventory
-                    </NavBarTab>
-                    <NavBarTab
-                        active={location.pathname === '/sales-orders'}
-                        navbarKey="SalesOrders"
-                        hrefLink="/sales-orders"
-                    >
-                        SalesOrders
-                    </NavBarTab>
-                    <NavBarTab
-                        active={location.pathname === '/customers'}
-                        navbarKey="Customers"
-                        hrefLink="/customers"
-                    >
-                        Customers
-                    </NavBarTab>
-                    <NavBarTab
-                        active={location.pathname === '/logs'}
-                        navbarKey="Logs"
-                        hrefLink="/logs"
-                    >
-                        Logs
-                    </NavBarTab>
-                    <NavBarTab
-                        active={location.pathname === '/users'}
-                        navbarKey="Users"
-                        hrefLink="/users"
-                    >
-                        Users
-                    </NavBarTab>
-                </ul>
-            </div>
-            <div className="basis-1/4">
-                <button
-                    type="button"
-                    className="flex inline-block py-3 px-4 font-semibold text-white place-content-end"
-                    onClick={() => signout()}
-                >
-                    Log Out
-                </button>
+                        Inventory Management System
+                    </Link>
+                </div>
+                <div className="hidden w-full md:block md:w-auto">
+                    <ul className="flex place-content-center">
+                        {links
+                            .filter((link) => link.roles.includes(user.role))
+                            .map((link) => (
+                                <NavBarTab
+                                    key={link.text}
+                                    active={link.active}
+                                    onClick={link.onClick}
+                                >
+                                    {link.text}
+                                </NavBarTab>
+                            ))}
+                    </ul>
+                </div>
             </div>
         </nav>
     )

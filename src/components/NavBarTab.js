@@ -1,24 +1,23 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import clsx from 'clsx'
 
-const NavBarTab = ({ active, navbarKey, hrefLink }) => {
+const NavBarTab = ({ active, onClick, children }) => {
     const tabCss = 'inline-block py-3 px-4 font-semibold'
-    const unselectedTabCss = ' bg-neutral-700 text-white'
+    const unselectedTabCss = 'bg-neutral-700 text-white'
     const selectedTabCss =
-        ' bg-slate-300 border-slate-300 text-black border-l border-t border-r rounded-t'
+        'bg-slate-300 border-slate-300 text-black border-l border-t border-r rounded-t'
 
     return (
-        <li className="-mb-px mr-1">
-            <Link
-                className={
-                    active
-                        ? `${tabCss}${selectedTabCss}`
-                        : `${tabCss}${unselectedTabCss}`
-                }
-                to={hrefLink}
+        <li style={active ? { transform: 'translateY(1px)' } : {}}>
+            <div
+                className={clsx([
+                    tabCss,
+                    active ? selectedTabCss : unselectedTabCss,
+                ])}
+                onClick={onClick}
             >
-                {navbarKey}
-            </Link>
+                {children}
+            </div>
         </li>
     )
 }

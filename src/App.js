@@ -6,14 +6,19 @@ import { AuthContextProvider, useAuthContext } from './contexts/AuthContext'
 import DefaultLayout from './layouts/DefaultLayout'
 import NotificationList from './components/NotificationList'
 import NotFoundPage from './pages/NotFoundPage'
-import AuthenticatedRoutes from './routes/authenticated'
-import UnAuthenticatedRoutes from './routes/unAuthenticated'
+import AdminRoutes from './routes/adminRoutes'
+import EmployeeRoutes from './routes/employeeRoutes'
+import UnAuthenticatedRoutes from './routes/unAuthenticatedRoutes'
 import LoadingScreen from './components/LoadingScreen'
 import { UsersContextProvider } from './contexts/UsersContext'
 
 function AppRoutes() {
     const { user } = useAuthContext()
-    const routes = user ? AuthenticatedRoutes : UnAuthenticatedRoutes
+    const routes = user
+        ? user.role === 'admin'
+            ? AdminRoutes
+            : EmployeeRoutes
+        : UnAuthenticatedRoutes
 
     return (
         <Routes>
