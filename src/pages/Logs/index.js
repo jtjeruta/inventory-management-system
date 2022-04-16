@@ -12,13 +12,13 @@ const AdminPage = () => {
                         className="block box-border h-32 w-32 bg-cyan-500 mt-16 ml-10 py-10 px-10 font-semibold rounded-l-lg"
                         onClick={setContent1}
                     >
-                        Add shit
+                        Big Logs
                     </button>
                     <button
                         className="block box-border h-32 w-32 bg-teal-500 my-2 ml-10 py-10 px-10 font-semibold rounded-l-lg"
                         onClick={setContent2}
                     >
-                        Spread sheet
+                        Small Logs
                     </button>
                 </div>
                 {contentState === 1 ? <Content1 /> : <Content2 />}
