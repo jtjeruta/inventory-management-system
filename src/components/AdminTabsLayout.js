@@ -27,11 +27,13 @@ const AdminTabsLayout = ({
                 </div>
 
                 {tab === 0 ? (
-                    <div className="bg-cyan-500 grow py-2 px-10">
+                    <div className="bg-cyan-500 grow py-2 px-10 shadow-md dark:bg-gray-800 dark:border-gray-700">
                         {AddContent}
                     </div>
                 ) : (
-                    <div className="bg-teal-500 grow">{TableContent}</div>
+                    <div className="bg-teal-500 grow shadow-md dark:bg-gray-800 dark:border-gray-700">
+                        {TableContent}
+                    </div>
                 )}
             </div>
         </div>

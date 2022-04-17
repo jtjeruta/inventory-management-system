@@ -15,7 +15,7 @@ const VendorTable = () => {
             columns={[
                 { property: 'vendorName', editable: true },
                 { property: 'vendorEmail', editable: true },
-                { property: 'vendorPhoneNumber', editable: true },
+                { property: 'vendorContactNumber', editable: true },
                 { property: 'vendorAddress', editable: true },
             ]}
             onChange={onChange}

@@ -5,7 +5,7 @@ const DefaultLayout = ({ children }) => {
     return (
         <div className="flex flex-col min-h-screen">
             <AdminNavbar />
-            <div className="flex grow bg-slate-300">{children}</div>
+            <div className="flex grow bg-slate-50">{children}</div>
         </div>
     )
 }
