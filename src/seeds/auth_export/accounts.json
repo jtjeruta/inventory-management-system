@@ -9,7 +9,7 @@
             "photoUrl": "",
             "passwordHash": "fakeHash:salt=fakeSaltyb5DgffHguqRf30i7UEr:password=password",
             "salt": "fakeSaltyb5DgffHguqRf30i7UEr",
-            "passwordUpdatedAt": 1648651807552,
+            "passwordUpdatedAt": 1650177517779,
             "providerUserInfo": [
                 {
                     "providerId": "password",
@@ -20,7 +20,7 @@
                     "photoUrl": ""
                 }
             ],
-            "validSince": "1648651807",
+            "validSince": "1650177517",
             "email": "employee@gmail.com",
             "emailVerified": false,
             "disabled": false
@@ -31,12 +31,9 @@
             "lastLoginAt": "1648651995281",
             "displayName": "",
             "photoUrl": "",
-            "emailVerified": false,
-            "email": "employee2@gmail.com",
-            "salt": "fakeSaltJfgLHTKlkYd8lrS8iMqu",
             "passwordHash": "fakeHash:salt=fakeSaltJfgLHTKlkYd8lrS8iMqu:password=password",
-            "passwordUpdatedAt": 1648651995282,
-            "validSince": "1648651995",
+            "salt": "fakeSaltJfgLHTKlkYd8lrS8iMqu",
+            "passwordUpdatedAt": 1650177517779,
             "providerUserInfo": [
                 {
                     "providerId": "password",
@@ -46,17 +43,21 @@
                     "displayName": "",
                     "photoUrl": ""
                 }
-            ]
+            ],
+            "validSince": "1650177517",
+            "email": "employee2@gmail.com",
+            "emailVerified": false,
+            "disabled": false
         },
         {
             "localId": "XzwQsJmeHIPBAUbDsGiHY4Lp0I55",
             "createdAt": "1648354529742",
-            "lastLoginAt": "1648355321692",
+            "lastLoginAt": "1650177532960",
             "displayName": "",
             "photoUrl": "",
             "passwordHash": "fakeHash:salt=fakeSaltapp7YSvNBQzCAVHVmZ2W:password=password",
             "salt": "fakeSaltapp7YSvNBQzCAVHVmZ2W",
-            "passwordUpdatedAt": 1648651807553,
+            "passwordUpdatedAt": 1650177517779,
             "providerUserInfo": [
                 {
                     "providerId": "password",
@@ -67,10 +68,11 @@
                     "photoUrl": ""
                 }
             ],
-            "validSince": "1648651807",
+            "validSince": "1650177517",
             "email": "admin@gmail.com",
             "emailVerified": false,
-            "disabled": false
+            "disabled": false,
+            "lastRefreshAt": "2022-04-17T10:07:15.755Z"
         }
     ]
 }
