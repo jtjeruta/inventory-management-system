@@ -67,14 +67,12 @@ const AdminNavbar = () => {
     return (
         <nav className="bg-neutral-700 flex">
             <div className="container flex flex-wrap justify-between items-center mx-auto">
-                <div>
-                    <Link
-                        className="inline-block py-3 px-4 font-semibold text-white"
-                        to="/"
-                    >
-                        Inventory Management System
-                    </Link>
-                </div>
+                <Link
+                    className="inline-block py-3 px-4 font-semibold text-white"
+                    to="/"
+                >
+                    Inventory Management System
+                </Link>
                 <div className="hidden w-full md:block md:w-auto">
                     <ul className="flex place-content-center">
                         {links
