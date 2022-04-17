@@ -14,15 +14,26 @@ import AdminTabsLayout from '../../components/AdminTabsLayout'
 import Button from '../../components/SubmitButton'
 import SimpleInput from '../../components/GeneralInput'
 import SelectInput from '../../components/GeneralSelectInput'
+import ProductTable from './ProductTable'
+import {
+    InventoryContextProvider,
+    useInventoryContext,
+} from '../../contexts/InventoryContext'
 
-const AdminPage = () => {
+const InventoryPageContent = () => {
+    const InventoryContext = useInventoryContext()
     const [tab, setTab] = useState(0)
+
+    useEffect(() => {
+        InventoryContext.listProducts()
+    }, [])
+
     return (
         <AdminTabsLayout
-            addButton="Add Item"
-            tableButton="Items"
+            addButton="Add Product"
+            tableButton="Products"
             AddContent={<Content1 />}
-            TableContent={<Content2 />}
+            TableContent={<ProductTable />}
             setTab={setTab}
             tab={tab}
         />
@@ -787,6 +798,10 @@ const Content1 = () => {
         </div>
     )
 }
-const Content2 = () => <>Content 2</>
 
-export default AdminPage
+const InventoryPage = () => (
+    <InventoryContextProvider>
+        <InventoryPageContent />
+    </InventoryContextProvider>
+)
+export default InventoryPage

@@ -4,12 +4,12 @@
         {
             "localId": "PLuDnjM3Ok5fUdORbGBuTqm6C3sm",
             "createdAt": "1648355185533",
-            "lastLoginAt": "1648355185533",
+            "lastLoginAt": "1650199006103",
             "displayName": "",
             "photoUrl": "",
             "passwordHash": "fakeHash:salt=fakeSaltyb5DgffHguqRf30i7UEr:password=password",
             "salt": "fakeSaltyb5DgffHguqRf30i7UEr",
-            "passwordUpdatedAt": 1650177517779,
+            "passwordUpdatedAt": 1650198984430,
             "providerUserInfo": [
                 {
                     "providerId": "password",
@@ -20,10 +20,11 @@
                     "photoUrl": ""
                 }
             ],
-            "validSince": "1650177517",
+            "validSince": "1650198984",
             "email": "employee@gmail.com",
             "emailVerified": false,
-            "disabled": false
+            "disabled": false,
+            "lastRefreshAt": "2022-04-17T12:36:46.103Z"
         },
         {
             "localId": "RHjI3bZZICK1CWo9XMMWBJiueQjR",
@@ -33,7 +34,7 @@
             "photoUrl": "",
             "passwordHash": "fakeHash:salt=fakeSaltJfgLHTKlkYd8lrS8iMqu:password=password",
             "salt": "fakeSaltJfgLHTKlkYd8lrS8iMqu",
-            "passwordUpdatedAt": 1650177517779,
+            "passwordUpdatedAt": 1650198984432,
             "providerUserInfo": [
                 {
                     "providerId": "password",
@@ -44,7 +45,7 @@
                     "photoUrl": ""
                 }
             ],
-            "validSince": "1650177517",
+            "validSince": "1650198984",
             "email": "employee2@gmail.com",
             "emailVerified": false,
             "disabled": false
@@ -52,12 +53,12 @@
         {
             "localId": "XzwQsJmeHIPBAUbDsGiHY4Lp0I55",
             "createdAt": "1648354529742",
-            "lastLoginAt": "1650177532960",
+            "lastLoginAt": "1650199021321",
             "displayName": "",
             "photoUrl": "",
             "passwordHash": "fakeHash:salt=fakeSaltapp7YSvNBQzCAVHVmZ2W:password=password",
             "salt": "fakeSaltapp7YSvNBQzCAVHVmZ2W",
-            "passwordUpdatedAt": 1650177517779,
+            "passwordUpdatedAt": 1650198984433,
             "providerUserInfo": [
                 {
                     "providerId": "password",
@@ -68,11 +69,11 @@
                     "photoUrl": ""
                 }
             ],
-            "validSince": "1650177517",
+            "validSince": "1650198984",
             "email": "admin@gmail.com",
             "emailVerified": false,
             "disabled": false,
-            "lastRefreshAt": "2022-04-17T10:07:15.755Z"
+            "lastRefreshAt": "2022-04-17T13:32:01.724Z"
         }
     ]
 }
