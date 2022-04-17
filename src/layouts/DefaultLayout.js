@@ -3,9 +3,9 @@ import AdminNavbar from '../components/AdminNavBar'
 
 const DefaultLayout = ({ children }) => {
     return (
-        <div>
+        <div className="flex flex-col min-h-screen">
             <AdminNavbar />
-            {children}
+            <div className="flex grow bg-slate-300">{children}</div>
         </div>
     )
 }
