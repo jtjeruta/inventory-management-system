@@ -43,7 +43,7 @@ const AddVendorForm = () => {
             />
             <SimpleInput
                 inputID="vendorEmail"
-                inputName="email"
+                inputName="Email"
                 inputType="email"
                 isRequired={false}
                 register={register}

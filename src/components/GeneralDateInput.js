@@ -12,7 +12,7 @@ const RootContainer = styled.div`
         left: 10px;
         top: 50%;
         transform: translateY(-50%);
-        color: black;
+        color: #134e4a;
         font-size: 18px;
         transition: 0.3s;
     }
@@ -26,7 +26,7 @@ const RootContainer = styled.div`
         bottom: -2px;
         width: 0%;
         height: 2px;
-        background-color: #299672;
+        background-color: #134e4a;
         transition: 0.4s;
     }
 
