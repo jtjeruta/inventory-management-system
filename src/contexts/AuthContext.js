@@ -25,7 +25,7 @@ const AuthContext = createContext()
 
 const AuthContextProvider = ({ children }) => {
     const AppContext = useAppContext()
-    const [authenticating, setAuthenticating] = useState(false)
+    const [authenticating, setAuthenticating] = useState(true)
     const [user, setUser] = useState(null)
 
     const getUserDetails = async (id) => {

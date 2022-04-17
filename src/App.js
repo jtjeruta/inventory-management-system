@@ -14,6 +14,7 @@ import { UsersContextProvider } from './contexts/UsersContext'
 
 function AppRoutes() {
     const { user } = useAuthContext()
+
     const routes = user
         ? user.role === 'admin'
             ? AdminRoutes
@@ -42,19 +43,19 @@ function AppRoutes() {
 }
 
 function AppContent() {
-    const { user } = useAuthContext()
+    const { user, authenticating } = useAuthContext()
 
     return (
         <>
             <LoadingScreen />
             <NotificationList />
             <BrowserRouter>
-                {user ? (
+                {!authenticating && user ? (
                     <DefaultLayout>
                         <AppRoutes />
                     </DefaultLayout>
                 ) : (
-                    <AppRoutes />
+                    !authenticating && <AppRoutes />
                 )}
             </BrowserRouter>
         </>
