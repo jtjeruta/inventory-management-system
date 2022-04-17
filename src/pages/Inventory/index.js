@@ -359,7 +359,7 @@ const Content1 = () => {
     }, [isSubcategory])
 
     return (
-        <div className="bg-cyan-500 h-screen w-10/12 mt-8 p-2 align-top rounded-t-lg">
+        <>
             <div>
                 <div className="bg-transparent w-full mt-2 p-2 align-top flex flex-row-reverse">
                     <button
@@ -383,90 +383,81 @@ const Content1 = () => {
                         Add Category
                     </button>
                 </div>
-                <div className="max-w-screen-md m-auto">
-                    <form
-                        id="add_product_form"
-                        onSubmit={handleSubmit(onSubmitProduct)}
-                    >
-                        <SimpleInput
-                            inputID="productName"
-                            inputName="Name of Product"
-                            inputType="text"
-                            isRequired
-                            register={register}
-                        />
-                        <SimpleInput
-                            inputID="productPrice"
-                            inputName="Price of Product"
-                            inputType="text"
-                            isRequired
-                            register={register}
-                        />
-                        <SimpleInput
-                            inputID="productResellPrice"
-                            inputName="Resell Price"
-                            inputType="text"
-                            isRequired={false}
-                            register={register}
-                        />
-                        <SimpleInput
-                            inputID="productMarkup"
-                            inputName="Markup (Interest)"
-                            inputType="text"
-                            isRequired={false}
-                            register={register}
-                        />
-                        <SimpleInput
-                            inputID="productQuantity"
-                            inputName="Quantity"
-                            inputType="number"
-                            isRequired
-                            register={register}
-                        />
-                        <SimpleInput
-                            inputID="productSKU"
-                            inputName="SKU"
-                            inputType="number"
-                            isRequired
-                            register={register}
-                        />
-                        <SimpleInput
-                            inputID="productBrand"
-                            inputName="Brand Name"
-                            inputType="text"
-                            isRequired
-                            register={register}
-                        />
-                        <SelectInput
-                            inputID="productCategory"
-                            collection="productCategory"
-                            collectionKey="productCategoryName"
-                            inputName="Category"
-                            isRequired={false}
-                            register={register}
-                            optionKey="isEnabled"
-                            optionValue
-                        />
-                        <SelectInput
-                            inputID="productSubcategory"
-                            collection="productSubcategory"
-                            collectionKey="productSubcategoryName"
-                            inputName="Subcategory"
-                            isRequired={selectedCategory}
-                            register={register}
-                            optionKey={[
-                                'productSubcategoryCategory',
-                                'isEnabled',
-                            ]}
-                            optionValue={[selectedCategory, true]}
-                        />
-                        <Button
-                            text="Add Product"
-                            loading={loading}
-                            className=""
-                        />
-                    </form>
-                </div>
+                <form
+                    id="add_product_form"
+                    onSubmit={handleSubmit(onSubmitProduct)}
+                >
+                    <SimpleInput
+                        inputID="productName"
+                        inputName="Name of Product"
+                        inputType="text"
+                        isRequired
+                        register={register}
+                    />
+                    <SimpleInput
+                        inputID="productPrice"
+                        inputName="Price of Product"
+                        inputType="text"
+                        isRequired
+                        register={register}
+                    />
+                    <SimpleInput
+                        inputID="productResellPrice"
+                        inputName="Resell Price"
+                        inputType="text"
+                        isRequired={false}
+                        register={register}
+                    />
+                    <SimpleInput
+                        inputID="productMarkup"
+                        inputName="Markup (Interest)"
+                        inputType="text"
+                        isRequired={false}
+                        register={register}
+                    />
+                    <SimpleInput
+                        inputID="productQuantity"
+                        inputName="Quantity"
+                        inputType="number"
+                        isRequired
+                        register={register}
+                    />
+                    <SimpleInput
+                        inputID="productSKU"
+                        inputName="SKU"
+                        inputType="number"
+                        isRequired
+                        register={register}
+                    />
+                    <SimpleInput
+                        inputID="productBrand"
+                        inputName="Brand Name"
+                        inputType="text"
+                        isRequired
+                        register={register}
+                    />
+                    <SelectInput
+                        inputID="productCategory"
+                        collection="productCategory"
+                        collectionKey="productCategoryName"
+                        inputName="Category"
+                        isRequired={false}
+                        register={register}
+                        optionKey="isEnabled"
+                        optionValue
+                    />
+                    <SelectInput
+                        inputID="productSubcategory"
+                        collection="productSubcategory"
+                        collectionKey="productSubcategoryName"
+                        inputName="Subcategory"
+                        isRequired={selectedCategory}
+                        register={register}
+                        optionKey={['productSubcategoryCategory', 'isEnabled']}
+                        optionValue={[selectedCategory, true]}
+                    />
+                    <Button text="Add Product" loading={loading} className="" />
+                </form>
             </div>
             <div
                 className={`${
@@ -795,7 +786,7 @@ const Content1 = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
