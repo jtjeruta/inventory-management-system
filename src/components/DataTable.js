@@ -53,6 +53,7 @@ const Column = ({ item, property, editable, onChange }) => {
 
     const onBlur = async (event) => {
         const value = event.target.innerHTML
+        if (value === item[property]) return
         setLoading(true)
         await onChange(item.id, property, value)
         setLoading(false)
@@ -75,26 +76,22 @@ const Column = ({ item, property, editable, onChange }) => {
 
     return (
         <td className="text-sm leading-5 whitespace-nowrap border-b border-teal-200 bg-teal-100 text-cyan-900">
-            <div className="flex gap-1">
+            <div className="flex items-center gap-1">
                 <span
-                    className="px-6 py-4 grow break-all whitespace-pre-wrap outline-none focus:ring focus:ring-white"
+                    className="p-4 grow break-all whitespace-pre-wrap outline-none focus:ring focus:ring-white"
                     {...attributes}
                 >
                     {property ? item[property] : ''}
                 </span>
 
-                <span className="px-6 py-4">
-                    {loading && (
+                {loading && (
+                    <span>
                         <FontAwesomeIcon
                             className="animate-spin"
                             icon={faSpinner}
-                            style={{
-                                marginRight: 10,
-                                marginLeft: -26,
-                            }}
                         />
-                    )}
-                </span>
+                    </span>
+                )}
             </div>
         </td>
     )
