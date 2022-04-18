@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import AdminTabsLayout from '../../components/AdminTabsLayout'
 import { useAuthContext } from '../../contexts/AuthContext'
@@ -6,15 +6,26 @@ import Button from '../../components/SubmitButton'
 import SimpleInput from '../../components/GeneralInput'
 import SelectInput from '../../components/GeneralSelectInput'
 import DateInput from '../../components/GeneralDateInput'
+import {
+    PurchaseOrdersContextProvider,
+    usePurchaseOrdersContext,
+} from '../../contexts/PurchaseOrdersContext'
+import DataTable from '../../components/DataTable'
 
-const AdminPage = () => {
+const PurchaseOrdersContent = () => {
+    const PurchaseOrdersContext = usePurchaseOrdersContext()
     const [tab, setTab] = useState(0)
+
+    useEffect(() => {
+        PurchaseOrdersContext.listOrders()
+    }, [])
+
     return (
         <AdminTabsLayout
             addButton="Add Order"
             tableButton="Orders"
             AddContent={<Content1 />}
-            TableContent={<Content2 />}
+            TableContent={<TableContent />}
             setTab={setTab}
             tab={tab}
         />
@@ -58,7 +69,7 @@ const Content1 = () => {
                 inputID="poVendor"
                 collection="vendor"
                 collectionKey="vendorName"
-                inputName="Name"
+                inputName="Vendor"
                 isRequired
                 register={register}
             />
@@ -106,6 +117,43 @@ const Content1 = () => {
         </form>
     )
 }
-const Content2 = () => <>Content 2</>
 
-export default AdminPage
+const TableContent = () => {
+    const PurchaseOrdersContext = usePurchaseOrdersContext()
+
+    const onChange = (id, field, value) =>
+        PurchaseOrdersContext.updateOrder(id, field, value)
+
+    return (
+        <DataTable
+            data={PurchaseOrdersContext.orders}
+            titles={[
+                'Vendor',
+                'Product',
+                'Cheque Number',
+                'Date',
+                'Received',
+                'Delivered',
+                'Received by',
+            ]}
+            columns={[
+                { property: 'poVendor', editable: true },
+                { property: 'poProduct', editable: true },
+                { property: 'poChequeNumber', editable: true },
+                { property: 'poChequeDate', editable: true },
+                { property: 'poChequeDateReceived', editable: true },
+                { property: 'poDeliveryDate', editable: true },
+                { property: 'poReceivedBy', editable: true },
+            ]}
+            onChange={onChange}
+        />
+    )
+}
+
+const PurchaseOrdersPage = () => (
+    <PurchaseOrdersContextProvider>
+        <PurchaseOrdersContent />
+    </PurchaseOrdersContextProvider>
+)
+
+export default PurchaseOrdersPage
