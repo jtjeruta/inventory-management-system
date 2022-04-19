@@ -13,10 +13,10 @@ const VendorTable = () => {
             data={VendorsContext.vendors}
             titles={['name', 'email', 'phone', 'address']}
             columns={[
-                { property: 'vendorName', editable: true },
-                { property: 'vendorEmail', editable: true },
-                { property: 'vendorContactNumber', editable: true },
-                { property: 'vendorAddress', editable: true },
+                { property: 'vendorName' },
+                { property: 'vendorEmail' },
+                { property: 'vendorContactNumber' },
+                { property: 'vendorAddress' },
             ]}
             onChange={onChange}
         />

@@ -10,14 +10,26 @@ import {
     PurchaseOrdersContextProvider,
     usePurchaseOrdersContext,
 } from '../../contexts/PurchaseOrdersContext'
+import {
+    VendorsContextProvider,
+    useVendorsContext,
+} from '../../contexts/VendorsContext'
+import {
+    InventoryContextProvider,
+    useInventoryContext,
+} from '../../contexts/InventoryContext'
 import DataTable from '../../components/DataTable'
 
 const PurchaseOrdersContent = () => {
     const PurchaseOrdersContext = usePurchaseOrdersContext()
+    const InventoryContext = useInventoryContext()
+    const VendorsContext = useVendorsContext()
     const [tab, setTab] = useState(0)
 
     useEffect(() => {
         PurchaseOrdersContext.listOrders()
+        VendorsContext.listVendors()
+        InventoryContext.listProducts()
     }, [])
 
     return (
@@ -120,6 +132,8 @@ const Content1 = () => {
 
 const TableContent = () => {
     const PurchaseOrdersContext = usePurchaseOrdersContext()
+    const VendorsContext = useVendorsContext()
+    const InventoryContext = useInventoryContext()
 
     const onChange = (id, field, value) =>
         PurchaseOrdersContext.updateOrder(id, field, value)
@@ -137,13 +151,27 @@ const TableContent = () => {
                 'Received by',
             ]}
             columns={[
-                { property: 'poVendor', editable: true },
-                { property: 'poProduct', editable: true },
-                { property: 'poChequeNumber', editable: true },
-                { property: 'poChequeDate', editable: true },
-                { property: 'poChequeDateReceived', editable: true },
-                { property: 'poDeliveryDate', editable: true },
-                { property: 'poReceivedBy', editable: true },
+                {
+                    property: 'poVendor',
+                    inputType: 'select',
+                    selectData: VendorsContext.vendors.map((v) => ({
+                        value: v.id,
+                        text: v.vendorName,
+                    })),
+                },
+                {
+                    property: 'poProduct',
+                    inputType: 'select',
+                    selectData: InventoryContext.products.map((p) => ({
+                        value: p.id,
+                        text: p.productName,
+                    })),
+                },
+                { property: 'poChequeNumber' },
+                { property: 'poChequeDate' },
+                { property: 'poChequeDateReceived' },
+                { property: 'poDeliveryDate' },
+                { property: 'poReceivedBy' },
             ]}
             onChange={onChange}
         />
@@ -151,9 +179,13 @@ const TableContent = () => {
 }
 
 const PurchaseOrdersPage = () => (
-    <PurchaseOrdersContextProvider>
-        <PurchaseOrdersContent />
-    </PurchaseOrdersContextProvider>
+    <VendorsContextProvider>
+        <InventoryContextProvider>
+            <PurchaseOrdersContextProvider>
+                <PurchaseOrdersContent />
+            </PurchaseOrdersContextProvider>
+        </InventoryContextProvider>
+    </VendorsContextProvider>
 )
 
 export default PurchaseOrdersPage

@@ -22,14 +22,14 @@ const ProductTable = () => {
                 'subcategory',
             ]}
             columns={[
-                { property: 'productName', editable: true },
-                { property: 'productPrice', editable: true },
-                { property: 'productResellPrice', editable: true },
-                { property: 'productMarkup', editable: true },
-                { property: 'productQuantity', editable: true },
-                { property: 'productBrand', editable: true },
-                { property: 'productSKU', editable: true },
-                { property: 'productSubcategory', editable: true },
+                { property: 'productName' },
+                { property: 'productPrice' },
+                { property: 'productResellPrice' },
+                { property: 'productMarkup' },
+                { property: 'productQuantity' },
+                { property: 'productBrand' },
+                { property: 'productSKU' },
+                { property: 'productSubcategory' },
             ]}
             onChange={onChange}
         />

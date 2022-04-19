@@ -9,6 +9,8 @@ import clsx from 'clsx'
 //   - item: object inside the data array
 //   - property: string referring to a field inside the item object
 //   - editable: boolean saying if the column can be edited
+//   - inputType: text (default), select
+//   - selectData: array of objects with value and text
 // onChange: function (id, field, value) => Promise<void>
 
 const DataTable = ({ data, titles, columns, onChange }) => {
@@ -48,41 +50,66 @@ const DataTable = ({ data, titles, columns, onChange }) => {
     )
 }
 
-const Column = ({ item, property, editable, onChange }) => {
+const Column = ({ item, property, onChange, ...rest }) => {
+    // defaults
+    const editable = rest.editable ?? true
+    const inputType = rest.inputType ?? 'text'
+
     const [loading, setLoading] = useState(false)
 
-    const onBlur = async (event) => {
-        const value = event.target.innerHTML
-        if (value === item[property]) return
-        setLoading(true)
-        await onChange(item.id, property, value)
-        setLoading(false)
-    }
-
-    const onKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            event.target.blur()
-        }
-    }
-
-    const attributes = editable
-        ? {
-              onBlur,
-              onKeyPress,
-              contentEditable: true,
-              suppressContentEditableWarning: true,
-          }
-        : {}
+    const attributes =
+        inputType === 'text' && editable
+            ? {
+                  onBlur: async (event) => {
+                      const value = event.target.innerHTML
+                      if (value === item[property]) return
+                      setLoading(true)
+                      await onChange(item.id, property, value)
+                      setLoading(false)
+                  },
+                  onKeyPress: (event) => {
+                      if (event.key === 'Enter') {
+                          event.target.blur()
+                      }
+                  },
+                  contentEditable: true,
+                  suppressContentEditableWarning: true,
+              }
+            : inputType === 'select'
+            ? {
+                  defaultValue: item[property],
+                  onChange: async (event) => {
+                      const { value } = event.target
+                      if (value === item[property]) return
+                      setLoading(true)
+                      await onChange(item.id, property, value)
+                      setLoading(false)
+                  },
+              }
+            : {}
 
     return (
         <td className="text-sm leading-5 whitespace-nowrap border-b border-teal-200 bg-teal-100 text-cyan-900">
             <div className="flex items-center gap-1">
-                <span
-                    className="p-4 grow break-all whitespace-pre-wrap outline-none focus:ring focus:ring-white"
-                    {...attributes}
-                >
-                    {property ? item[property] : ''}
-                </span>
+                {inputType === 'text' ? (
+                    <span
+                        className="p-4 grow break-all whitespace-pre-wrap outline-none focus:ring focus:ring-white"
+                        {...attributes}
+                    >
+                        {property ? item[property] : ''}
+                    </span>
+                ) : (
+                    <select
+                        className="bg-transparent outline-none ring-transparent w-full h-full p-4 focus:ring-white focus:ring"
+                        {...attributes}
+                    >
+                        {(rest.selectData || []).map((d) => (
+                            <option key={d.value} value={d.value}>
+                                {d.text}
+                            </option>
+                        ))}
+                    </select>
+                )}
 
                 {loading && (
                     <span>
