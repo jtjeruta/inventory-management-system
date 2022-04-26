@@ -1,18 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useAuthContext } from '../../contexts/AuthContext'
 import AdminTabsLayout from '../../components/AdminTabsLayout'
 import Button from '../../components/SubmitButton'
 import SimpleInput from '../../components/GeneralInput'
+import CustomersTable from './CustomersTable'
+import {
+    CustomersContextProvider,
+    useCustomersContext,
+} from '../../contexts/CustomersContext'
 
-const AdminPage = () => {
+const CustomersPageContent = () => {
+    const CustomersContext = useCustomersContext()
     const [tab, setTab] = useState(0)
+
+    useEffect(() => {
+        CustomersContext.listCustomers()
+    })
+
     return (
         <AdminTabsLayout
             addButton="Add Customer"
             tableButton="Customers"
             AddContent={<Content1 />}
-            TableContent={<Content2 />}
+            TableContent={<CustomersTable />}
             setTab={setTab}
             tab={tab}
         />
@@ -79,6 +90,11 @@ const Content1 = () => {
         </form>
     )
 }
-const Content2 = () => <>Content 2</>
 
-export default AdminPage
+const CustomersPage = () => (
+    <CustomersContextProvider>
+        <CustomersPageContent />
+    </CustomersContextProvider>
+)
+
+export default CustomersPage
