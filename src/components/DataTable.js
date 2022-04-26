@@ -23,7 +23,7 @@ const DataTable = ({ data, titles, columns, onChange }) => {
                             key={title}
                             className={clsx([
                                 'px-6 py-3 text-xs font-medium leading-4 tracking-wider',
-                                'text-left uppercase bg-teal-200 text-cyan-900',
+                                'text-left uppercase bg-green-200 text-cyan-900',
                             ])}
                         >
                             {title}
@@ -89,7 +89,7 @@ const Column = ({ item, property, onChange, ...rest }) => {
             : {}
 
     return (
-        <td className="text-sm leading-5 whitespace-nowrap border-b border-teal-200 bg-teal-100 text-cyan-900">
+        <td className="text-sm leading-5 whitespace-nowrap border-b border-green-200 bg-green-100 text-cyan-900">
             <div className="flex items-center gap-1">
                 {inputType === 'text' ? (
                     <span
