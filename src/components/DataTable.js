@@ -4,8 +4,8 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 
 // data: array of Objects with ids
-// titles: array of strings as the titles of the table
 // columns: array of objects containing:
+//   - title: string
 //   - item: object inside the data array
 //   - property: string referring to a field inside the item object
 //   - editable: boolean saying if the column can be edited
@@ -13,20 +13,20 @@ import clsx from 'clsx'
 //   - selectData: array of objects with value and text
 // onChange: function (id, field, value) => Promise<void>
 
-const DataTable = ({ data, titles, columns, onChange }) => {
+const DataTable = ({ data, columns, onChange }) => {
     return (
         <table className="min-w-full max-w-full">
             <thead>
                 <tr>
-                    {titles.map((title) => (
+                    {columns.map((column) => (
                         <th
-                            key={title}
+                            key={column.title || column.property}
                             className={clsx([
                                 'px-6 py-3 text-xs font-medium leading-4 tracking-wider',
                                 'text-left uppercase bg-green-200 text-cyan-900',
                             ])}
                         >
-                            {title}
+                            {column.title || column.property}
                         </th>
                     ))}
                 </tr>
@@ -54,6 +54,7 @@ const Column = ({ item, property, onChange, ...rest }) => {
     // defaults
     const editable = rest.editable ?? true
     const inputType = rest.inputType ?? 'text'
+    const format = rest.format ?? ((v) => v)
 
     const [loading, setLoading] = useState(false)
 
@@ -96,7 +97,7 @@ const Column = ({ item, property, onChange, ...rest }) => {
                         className="p-4 grow break-all whitespace-pre-wrap outline-none focus:ring focus:ring-white"
                         {...attributes}
                     >
-                        {property ? item[property] : ''}
+                        {property ? format(item[property]) : ''}
                     </span>
                 ) : (
                     <select

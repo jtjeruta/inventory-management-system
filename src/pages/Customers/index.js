@@ -16,7 +16,7 @@ const CustomersPageContent = () => {
 
     useEffect(() => {
         CustomersContext.listCustomers()
-    })
+    }, [])
 
     return (
         <AdminTabsLayout

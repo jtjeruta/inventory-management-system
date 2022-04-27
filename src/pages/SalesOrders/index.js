@@ -1,19 +1,42 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useAuthContext } from '../../contexts/AuthContext'
 import AdminTabsLayout from '../../components/AdminTabsLayout'
 import Button from '../../components/SubmitButton'
 import SimpleInput from '../../components/GeneralInput'
 import SelectInput from '../../components/GeneralSelectInput'
+import SalesOrdersTable from './SalesOrdersTable'
+import {
+    SalesOrdersContextProvider,
+    useSalesOrdersContext,
+} from '../../contexts/SalesOrdersContext'
+import {
+    CustomersContextProvider,
+    useCustomersContext,
+} from '../../contexts/CustomersContext'
+import {
+    InventoryContextProvider,
+    useInventoryContext,
+} from '../../contexts/InventoryContext'
 
-const AdminPage = () => {
+const SalesOrdersPageContent = () => {
+    const SalesOrdersContext = useSalesOrdersContext()
+    const CustomersContext = useCustomersContext()
+    const InventoryContext = useInventoryContext()
     const [tab, setTab] = useState(0)
+
+    useEffect(() => {
+        CustomersContext.listCustomers()
+        SalesOrdersContext.listOrders()
+        InventoryContext.listProducts()
+    }, [])
+
     return (
         <AdminTabsLayout
             addButton="Add Order"
             tableButton="Orders"
             AddContent={<Content1 />}
-            TableContent={<Content2 />}
+            TableContent={<SalesOrdersTable />}
             setTab={setTab}
             tab={tab}
         />
@@ -43,7 +66,7 @@ const Content1 = () => {
                 inputID="soCustomer"
                 collection="customer"
                 collectionKey="customerName"
-                inputName="Name"
+                inputName="Customer"
                 isRequired
                 register={register}
             />
@@ -62,10 +85,19 @@ const Content1 = () => {
                 isRequired={false}
                 register={register}
             />
-            <Button text="Add Sale Order" loading={loading} className="" />
+            <Button text="Add Order" loading={loading} className="" />
         </form>
     )
 }
-const Content2 = () => <>Content 2</>
 
-export default AdminPage
+const SalesOrdersPage = () => (
+    <SalesOrdersContextProvider>
+        <CustomersContextProvider>
+            <InventoryContextProvider>
+                <SalesOrdersPageContent />
+            </InventoryContextProvider>
+        </CustomersContextProvider>
+    </SalesOrdersContextProvider>
+)
+
+export default SalesOrdersPage

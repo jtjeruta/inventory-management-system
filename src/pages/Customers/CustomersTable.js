@@ -11,12 +11,11 @@ const CustomersTable = () => {
     return (
         <DataTable
             data={CustomersContext.customers}
-            titles={['name', 'email', 'phone', 'address']}
             columns={[
-                { property: 'customerName' },
-                { property: 'customerEmail' },
-                { property: 'customerContactNumber' },
-                { property: 'customerAddress' },
+                { title: 'name', property: 'customerName' },
+                { title: 'email', property: 'customerEmail' },
+                { title: 'phone', property: 'customerContactNumber' },
+                { title: 'address', property: 'customerAddress' },
             ]}
             onChange={onChange}
         />

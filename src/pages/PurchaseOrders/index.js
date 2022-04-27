@@ -141,17 +141,9 @@ const TableContent = () => {
     return (
         <DataTable
             data={PurchaseOrdersContext.orders}
-            titles={[
-                'Vendor',
-                'Product',
-                'Cheque Number',
-                'Date',
-                'Received',
-                'Delivered',
-                'Received by',
-            ]}
             columns={[
                 {
+                    title: 'vendor',
                     property: 'poVendor',
                     inputType: 'select',
                     selectData: VendorsContext.vendors.map((v) => ({
@@ -160,6 +152,7 @@ const TableContent = () => {
                     })),
                 },
                 {
+                    title: 'product',
                     property: 'poProduct',
                     inputType: 'select',
                     selectData: InventoryContext.products.map((p) => ({
@@ -167,11 +160,11 @@ const TableContent = () => {
                         text: p.productName,
                     })),
                 },
-                { property: 'poChequeNumber' },
-                { property: 'poChequeDate' },
-                { property: 'poChequeDateReceived' },
-                { property: 'poDeliveryDate' },
-                { property: 'poReceivedBy' },
+                { title: 'cheque #', property: 'poChequeNumber' },
+                { title: 'date', property: 'poChequeDate' },
+                { title: 'received', property: 'poChequeDateReceived' },
+                { title: 'delivered', property: 'poDeliveryDate' },
+                { title: 'received by', property: 'poReceivedBy' },
             ]}
             onChange={onChange}
         />

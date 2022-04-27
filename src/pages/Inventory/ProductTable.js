@@ -11,25 +11,15 @@ const ProductTable = () => {
     return (
         <DataTable
             data={InventoryContext.products}
-            titles={[
-                'name',
-                'price',
-                'resell price',
-                'markup',
-                'quantity',
-                'brand',
-                'sku',
-                'subcategory',
-            ]}
             columns={[
-                { property: 'productName' },
-                { property: 'productPrice' },
-                { property: 'productResellPrice' },
-                { property: 'productMarkup' },
-                { property: 'productQuantity' },
-                { property: 'productBrand' },
-                { property: 'productSKU' },
-                { property: 'productSubcategory' },
+                { title: 'name', property: 'productName' },
+                { title: 'price', property: 'productPrice' },
+                { title: 'resell price', property: 'productResellPrice' },
+                { title: 'markup', property: 'productMarkup' },
+                { title: 'quantity', property: 'productQuantity' },
+                { title: 'brand', property: 'productBrand' },
+                { title: 'sku', property: 'productSKU' },
+                { title: 'subcategory', property: 'productSubcategory' },
             ]}
             onChange={onChange}
         />

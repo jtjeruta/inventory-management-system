@@ -11,12 +11,11 @@ const VendorTable = () => {
     return (
         <DataTable
             data={VendorsContext.vendors}
-            titles={['name', 'email', 'phone', 'address']}
             columns={[
-                { property: 'vendorName' },
-                { property: 'vendorEmail' },
-                { property: 'vendorContactNumber' },
-                { property: 'vendorAddress' },
+                { title: 'name', property: 'vendorName' },
+                { title: 'email', property: 'vendorEmail' },
+                { title: 'phone', property: 'vendorContactNumber' },
+                { title: 'address', property: 'vendorAddress' },
             ]}
             onChange={onChange}
         />
