@@ -8,7 +8,7 @@ const NavBarTab = ({ active, onClick, children }) => {
         'bg-slate-50 border-slate-300 text-black border-l border-t border-r rounded-t'
 
     return (
-        <li style={active ? { transform: 'translateY(1px)' } : {}}>
+        <li>
             <div
                 className={clsx([
                     tabCss,
