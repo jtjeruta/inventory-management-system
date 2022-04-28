@@ -18,13 +18,9 @@ const AdminNavbar = () => {
         },
         {
             text: 'Purchase Orders',
-            active:
-                user.role === 'admin'
-                    ? location.pathname === '/purchase-orders'
-                    : location.pathname === '/',
-            onClick: () =>
-                navigate(user.role === 'admin' ? '/purchase-orders' : '/'),
-            roles: ['admin', 'employee'],
+            active: location.pathname === '/purchase-orders',
+            onClick: () => navigate('/purchase-orders'),
+            roles: ['admin'],
         },
         {
             text: 'Inventory',
@@ -34,9 +30,13 @@ const AdminNavbar = () => {
         },
         {
             text: 'Sales Orders',
-            active: location.pathname === '/sales-orders',
-            onClick: () => navigate('/sales-orders'),
-            roles: ['admin'],
+            active:
+                user.role === 'admin'
+                    ? location.pathname === '/sales-orders'
+                    : location.pathname === '/',
+            onClick: () =>
+                navigate(user.role === 'admin' ? '/sales-orders' : '/'),
+            roles: ['admin', 'employee'],
         },
         {
             text: 'Customers',

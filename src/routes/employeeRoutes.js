@@ -3,7 +3,7 @@ import React from 'react'
 const routes = [
     {
         path: '/',
-        component: React.lazy(() => import('../pages/PurchaseOrders')),
+        component: React.lazy(() => import('../pages/SalesOrders')),
     },
 ]
 
