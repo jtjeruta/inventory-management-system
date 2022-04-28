@@ -12,8 +12,11 @@ import clsx from 'clsx'
 //   - inputType: text (default), select
 //   - selectData: array of objects with value and text
 // onChange: function (id, field, value) => Promise<void>
+// loading: boolean
+const colClx =
+    'text-sm leading-5 whitespace-nowrap border-b border-green-200 bg-green-100 text-cyan-900'
 
-const DataTable = ({ data, columns, onChange }) => {
+const DataTable = ({ data, columns, onChange, loading }) => {
     return (
         <table className="min-w-full max-w-full">
             <thead>
@@ -33,18 +36,36 @@ const DataTable = ({ data, columns, onChange }) => {
             </thead>
 
             <tbody className="bg-white">
-                {data.map((item) => (
-                    <tr key={item.id}>
-                        {columns.map((column) => (
-                            <Column
-                                key={column.property}
-                                item={item}
-                                onChange={onChange}
-                                {...column}
-                            />
+                {loading ? (
+                    <>
+                        {[1, 2, 3].map((index) => (
+                            <tr key={`tr-${index}`}>
+                                {columns.map((column) => (
+                                    <td key={column.title} className={colClx}>
+                                        <div className="animate-pulse flex p-2">
+                                            <div className="h-4 w-full bg-slate-400 rounded" />
+                                        </div>
+                                    </td>
+                                ))}
+                            </tr>
                         ))}
-                    </tr>
-                ))}
+                    </>
+                ) : (
+                    <>
+                        {data.map((item) => (
+                            <tr key={item.id}>
+                                {columns.map((column) => (
+                                    <Column
+                                        key={column.property}
+                                        item={item}
+                                        onChange={onChange}
+                                        {...column}
+                                    />
+                                ))}
+                            </tr>
+                        ))}
+                    </>
+                )}
             </tbody>
         </table>
     )
@@ -90,7 +111,7 @@ const Column = ({ item, property, onChange, ...rest }) => {
             : {}
 
     return (
-        <td className="text-sm leading-5 whitespace-nowrap border-b border-green-200 bg-green-100 text-cyan-900">
+        <td className={colClx}>
             <div className="flex items-center gap-1">
                 {inputType === 'text' ? (
                     <span

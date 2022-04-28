@@ -18,6 +18,7 @@ const VendorTable = () => {
                 { title: 'address', property: 'vendorAddress' },
             ]}
             onChange={onChange}
+            loading={VendorsContext.fetchingVendors}
         />
     )
 }

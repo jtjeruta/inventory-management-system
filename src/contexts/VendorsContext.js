@@ -11,10 +11,12 @@ const VendorsContextProvider = ({ children }) => {
     const AppContext = useAppContext()
     const AuthContext = useAuthContext()
     const [vendors, setVendors] = useState([])
+    const [fetchingVendors, setFetchingVendors] = useState(false)
 
     const listVendors = async () => {
         if (AuthContext.user?.role !== 'admin') return [false]
         const fetchedVendors = []
+        setFetchingVendors(true)
 
         try {
             const querySnap = await getDocs(collection(db, 'vendor'))
@@ -24,6 +26,7 @@ const VendorsContextProvider = ({ children }) => {
             })
 
             setVendors(fetchedVendors)
+            setFetchingVendors(false)
             return [true, fetchedVendors]
         } catch (error) {
             AppContext.addNotification({
@@ -31,6 +34,7 @@ const VendorsContextProvider = ({ children }) => {
                 title: 'Something went wrong.',
                 content: 'Please try again later.',
             })
+            setFetchingVendors(false)
             return [false]
         }
     }
@@ -64,8 +68,8 @@ const VendorsContextProvider = ({ children }) => {
     }
 
     const value = useMemo(
-        () => ({ listVendors, vendors, updateVendor }),
-        [vendors, AuthContext.user]
+        () => ({ listVendors, vendors, updateVendor, fetchingVendors }),
+        [vendors, AuthContext.user, fetchingVendors]
     )
 
     return (
