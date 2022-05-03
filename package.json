@@ -32,7 +32,8 @@
         "lint:fix": "npm run lint -- --fix",
         "prepare": "husky install",
         "emulators": "firebase emulators:start --import ./src/seeds",
-        "emulators:export": "firebase emulators:export ./src/seeds"
+        "emulators:export": "firebase emulators:export ./src/seeds",
+        "deploy": "bash ./deploy.sh"
     },
     "eslintConfig": {
         "extends": [
