@@ -10,7 +10,7 @@ import {
     faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons'
 import { useAuthContext } from '../../contexts/AuthContext'
-import AdminTabsLayout from '../../components/AdminTabsLayout'
+import AdminTabsLayout from '../../layouts/AdminTabsLayout'
 import Button from '../../components/SubmitButton'
 import SimpleInput from '../../components/GeneralInput'
 import SelectInput from '../../components/GeneralSelectInput'

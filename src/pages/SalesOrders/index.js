@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
 import { useAuthContext } from '../../contexts/AuthContext'
-import AdminTabsLayout from '../../components/AdminTabsLayout'
-import Button from '../../components/SubmitButton'
-import SimpleInput from '../../components/GeneralInput'
-import SelectInput from '../../components/GeneralSelectInput'
+import AdminTabsLayout from '../../layouts/AdminTabsLayout'
 import SalesOrdersTable from './SalesOrdersTable'
 import {
     SalesOrdersContextProvider,
@@ -18,8 +14,11 @@ import {
     InventoryContextProvider,
     useInventoryContext,
 } from '../../contexts/InventoryContext'
+import AddOrder from './AddOrder'
+import EmployeeLayout from '../../layouts/EmployeeLayout'
 
 const SalesOrdersPageContent = () => {
+    const AuthContext = useAuthContext()
     const SalesOrdersContext = useSalesOrdersContext()
     const CustomersContext = useCustomersContext()
     const InventoryContext = useInventoryContext()
@@ -31,62 +30,19 @@ const SalesOrdersPageContent = () => {
         InventoryContext.listProducts()
     }, [])
 
-    return (
+    return AuthContext.user.role === 'admin' ? (
         <AdminTabsLayout
             addButton="Add Order"
             tableButton="Orders"
-            AddContent={<Content1 />}
+            AddContent={<AddOrder />}
             TableContent={<SalesOrdersTable />}
             setTab={setTab}
             tab={tab}
         />
-    )
-}
-
-const Content1 = () => {
-    const { register, handleSubmit } = useForm()
-    const [loading, setLoading] = useState(false)
-    const { standardAddMethod, user } = useAuthContext()
-    const onSubmit = async ({ soCustomer, soProduct, soRemarks }) => {
-        setLoading(true)
-        const soDate = new Date()
-        const soSalesRep = user.id
-        await standardAddMethod(
-            'salesOrder',
-            { soCustomer, soProduct, soRemarks, soDate, soSalesRep },
-            'Sales Order'
-        )
-        document.getElementById('add_so_form').reset()
-        setLoading(false)
-    }
-
-    return (
-        <form id="add_so_form" onSubmit={handleSubmit(onSubmit)}>
-            <SelectInput
-                inputID="soCustomer"
-                collection="customer"
-                collectionKey="customerName"
-                inputName="Customer"
-                isRequired
-                register={register}
-            />
-            <SelectInput
-                inputID="soProduct"
-                collection="product"
-                collectionKey="productName"
-                inputName="Product"
-                isRequired
-                register={register}
-            />
-            <SimpleInput
-                inputID="soRemarks"
-                inputName="Remarks"
-                inputType="text"
-                isRequired={false}
-                register={register}
-            />
-            <Button text="Add Order" loading={loading} className="" />
-        </form>
+    ) : (
+        <EmployeeLayout>
+            <AddOrder />
+        </EmployeeLayout>
     )
 }
 

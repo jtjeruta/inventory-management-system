@@ -3,7 +3,7 @@ import {
     useVendorsContext,
     VendorsContextProvider,
 } from '../../contexts/VendorsContext'
-import AdminTabsLayout from '../../components/AdminTabsLayout'
+import AdminTabsLayout from '../../layouts/AdminTabsLayout'
 import AddVendorForm from './AddVendorForm'
 import VendorTable from './VendorTable'
 

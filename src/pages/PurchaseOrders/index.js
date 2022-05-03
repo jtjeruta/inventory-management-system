@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import AdminTabsLayout from '../../components/AdminTabsLayout'
+import AdminTabsLayout from '../../layouts/AdminTabsLayout'
 import { useAuthContext } from '../../contexts/AuthContext'
 import Button from '../../components/SubmitButton'
 import SimpleInput from '../../components/GeneralInput'

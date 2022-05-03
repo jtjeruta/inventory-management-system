@@ -1,5 +1,5 @@
 import React from 'react'
-import AdminTabsLayout from '../../components/AdminTabsLayout'
+import AdminTabsLayout from '../../layouts/AdminTabsLayout'
 
 const AdminPage = () => {
     const [tab, setTab] = React.useState(0)
