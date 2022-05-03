@@ -1,5 +1,5 @@
 {
-  "projects": {
-    "default": "ims---staging"
-  }
+    "projects": {
+        "default": "pagasa-trading-inventory"
+    }
 }
