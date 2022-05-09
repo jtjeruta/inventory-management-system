@@ -91,7 +91,7 @@ const SelectInput = ({
     }
     return (
         <RootContainer
-            className={`border-b-2 relative grid my-5 py-1 focus:outline-none ${
+            className={`border-b relative grid my-5 py-1 focus:outline-none ${
                 isFocused && 'focus'
             } ${hasContent && 'has-content'}`}
         >
