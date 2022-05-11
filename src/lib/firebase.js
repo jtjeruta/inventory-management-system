@@ -19,7 +19,9 @@ const auth = getAuth()
 const db = getFirestore()
 
 if (process.env.NODE_ENV !== 'production') {
-    connectAuthEmulator(auth, 'http://localhost:9099')
+    connectAuthEmulator(auth, 'http://localhost:9099', {
+        disableWarnings: true,
+    })
     connectFirestoreEmulator(db, 'localhost', 8080)
 }
 
