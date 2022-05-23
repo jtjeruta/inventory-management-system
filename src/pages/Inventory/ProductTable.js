@@ -12,14 +12,20 @@ const ProductTable = () => {
         <DataTable
             data={InventoryContext.products}
             columns={[
-                { title: 'name', property: 'productName' },
-                { title: 'price', property: 'productPrice' },
-                { title: 'resell price', property: 'productResellPrice' },
-                { title: 'markup', property: 'productMarkup' },
-                { title: 'quantity', property: 'productQuantity' },
-                { title: 'brand', property: 'productBrand' },
-                { title: 'sku', property: 'productSKU' },
-                { title: 'subcategory', property: 'productSubcategory' },
+                {
+                    title: 'created',
+                    property: 'createdAt',
+                    format: (val) => val.toDate().toLocaleDateString(),
+                    editable: false,
+                },
+                { title: 'name', property: 'name' },
+                // { title: 'average price', property: 'avePrice' }, TODO: need to calculate ave price based on purchase orders
+                // { title: 'markup', property: 'markup' }, TODO: need to calculate markup based on resell price and ave price
+                { title: 'brand', property: 'brand' },
+                { title: 'sku', property: 'sku', editable: false },
+                { title: 'category', property: 'category' },
+                // { title: 'warehouse qty', property: 'warehouseQty' }, TODO: need to retrieve how much of product units are still in the warehouse
+                // { title: 'store qty', property: 'storeQty' }, TODO: need to retrieve how much of product units are in the store
             ]}
             onChange={onChange}
         />

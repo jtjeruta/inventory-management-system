@@ -19,4 +19,4 @@ RUN chown node:node node_modules
 COPY . ./
 
 # start app
-CMD ["npm", "start"]
+CMD ["bash", "start-dev.sh"]
