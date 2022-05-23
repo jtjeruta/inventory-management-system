@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 
 const RootContainer = styled.div`
@@ -54,7 +55,8 @@ const RootContainer = styled.div`
     }
 `
 
-const DateInput = ({ inputID, inputName, isRequired, register }) => {
+const DateInput = ({ inputID, inputName, isRequired }) => {
+    const { register } = useFormContext()
     const [isFocused, setIsFocused] = useState(false)
     const [hasContent, setHasContent] = useState(false)
     const handleChange = (value) => {

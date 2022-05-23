@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 import { useAuthContext } from '../contexts/AuthContext'
 
@@ -61,10 +62,10 @@ const SelectInput = ({
     collectionKey,
     inputName,
     isRequired,
-    register,
     optionKey,
     optionValue,
 }) => {
+    const { register } = useFormContext()
     const [isFocused, setIsFocused] = useState(false)
     const [hasContent, setHasContent] = useState(false)
     const { getDocsOfCollection } = useAuthContext()

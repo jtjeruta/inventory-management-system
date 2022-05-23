@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { useAuthContext } from '../../contexts/AuthContext'
 import { useVendorsContext } from '../../contexts/VendorsContext'
 import Button from '../../components/SubmitButton'
 import SimpleInput from '../../components/GeneralInput'
 
 const AddVendorForm = () => {
-    const { register, handleSubmit } = useForm()
+    const methods = useForm()
     const [loading, setLoading] = useState(false)
     const { standardAddMethod } = useAuthContext()
     const VendorsContext = useVendorsContext()
@@ -34,37 +34,38 @@ const AddVendorForm = () => {
     }
 
     return (
-        <form id="add_vendor_form" onSubmit={handleSubmit(onSubmit)}>
-            <SimpleInput
-                inputID="vendorName"
-                inputName="Name"
-                inputType="text"
-                isRequired
-                register={register}
-            />
-            <SimpleInput
-                inputID="vendorContactNumber"
-                inputName="Contact Number"
-                inputType="number"
-                isRequired
-                register={register}
-            />
-            <SimpleInput
-                inputID="vendorEmail"
-                inputName="Email"
-                inputType="email"
-                isRequired={false}
-                register={register}
-            />
-            <SimpleInput
-                inputID="vendorAddress"
-                inputName="Address"
-                inputType="text"
-                isRequired
-                register={register}
-            />
-            <Button text="Add Vendor" loading={loading} className="" />
-        </form>
+        <FormProvider {...methods}>
+            <form
+                id="add_vendor_form"
+                onSubmit={methods.handleSubmit(onSubmit)}
+            >
+                <SimpleInput
+                    inputID="vendorName"
+                    inputName="Name"
+                    inputType="text"
+                    isRequired
+                />
+                <SimpleInput
+                    inputID="vendorContactNumber"
+                    inputName="Contact Number"
+                    inputType="number"
+                    isRequired
+                />
+                <SimpleInput
+                    inputID="vendorEmail"
+                    inputName="Email"
+                    inputType="email"
+                    isRequired={false}
+                />
+                <SimpleInput
+                    inputID="vendorAddress"
+                    inputName="Address"
+                    inputType="text"
+                    isRequired
+                />
+                <Button text="Add Vendor" loading={loading} className="" />
+            </form>
+        </FormProvider>
     )
 }
 

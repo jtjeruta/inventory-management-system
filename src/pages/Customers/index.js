@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { useAuthContext } from '../../contexts/AuthContext'
 import AdminTabsLayout from '../../layouts/AdminTabsLayout'
 import Button from '../../components/SubmitButton'
@@ -31,7 +31,7 @@ const CustomersPageContent = () => {
 }
 
 const Content1 = () => {
-    const { register, handleSubmit } = useForm()
+    const methods = useForm()
     const [loading, setLoading] = useState(false)
     const { standardAddMethod } = useAuthContext()
     const onSubmit = async ({
@@ -57,37 +57,38 @@ const Content1 = () => {
     }
 
     return (
-        <form id="add_customer_form" onSubmit={handleSubmit(onSubmit)}>
-            <SimpleInput
-                inputID="customerName"
-                inputName="Name"
-                inputType="text"
-                isRequired
-                register={register}
-            />
-            <SimpleInput
-                inputID="customerContactNumber"
-                inputName="Contact Number"
-                inputType="number"
-                isRequired
-                register={register}
-            />
-            <SimpleInput
-                inputID="customerEmail"
-                inputName="email"
-                inputType="email"
-                isRequired={false}
-                register={register}
-            />
-            <SimpleInput
-                inputID="customerAddress"
-                inputName="Address"
-                inputType="text"
-                isRequired
-                register={register}
-            />
-            <Button text="Add Customer" loading={loading} className="" />
-        </form>
+        <FormProvider {...methods}>
+            <form
+                id="add_customer_form"
+                onSubmit={methods.handleSubmit(onSubmit)}
+            >
+                <SimpleInput
+                    inputID="customerName"
+                    inputName="Name"
+                    inputType="text"
+                    isRequired
+                />
+                <SimpleInput
+                    inputID="customerContactNumber"
+                    inputName="Contact Number"
+                    inputType="number"
+                    isRequired
+                />
+                <SimpleInput
+                    inputID="customerEmail"
+                    inputName="email"
+                    inputType="email"
+                    isRequired={false}
+                />
+                <SimpleInput
+                    inputID="customerAddress"
+                    inputName="Address"
+                    inputType="text"
+                    isRequired
+                />
+                <Button text="Add Customer" loading={loading} className="" />
+            </form>
+        </FormProvider>
     )
 }
 

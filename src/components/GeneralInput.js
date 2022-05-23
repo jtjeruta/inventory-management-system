@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import clsx from 'clsx'
+import { useFormContext } from 'react-hook-form'
 
 const RootContainer = styled.div`
     & > div {
@@ -60,13 +61,13 @@ const SimpleInput = ({
     inputName,
     inputType,
     isRequired,
-    register,
     defaultValue,
     autoCompleteOptions,
 }) => {
     const [isFocused, setIsFocused] = useState(false)
     const [options, setOptions] = useState([])
     const [value, setValue] = useState(defaultValue || '')
+    const { setValue: setFormValue, register } = useFormContext()
 
     const handleChange = (targetValue) => {
         setValue(targetValue)
@@ -111,6 +112,7 @@ const SimpleInput = ({
                     onClick={(option) => {
                         setValue(option)
                         setOptions([])
+                        setFormValue(inputID, option)
                     }}
                 />
             </div>
