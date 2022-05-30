@@ -11,22 +11,30 @@ import clsx from 'clsx'
 //   - editable: boolean saying if the column can be edited
 //   - inputType: text (default), select
 //   - selectData: array of objects with value and text
+//   - titleClsx: classes to add to the title
+//   - colClsx: classes to add to the column
 // onChange: function (id, field, value) => Promise<void>
 // loading: boolean
-const colClx =
-    'text-sm leading-5 whitespace-nowrap border-b border-green-200 bg-green-100 text-cyan-900'
+// bgColor: tailwind color
 
-const DataTable = ({ data, columns, onChange, loading }) => {
+const colClsx = (bgColor = 'green') =>
+    `text-sm leading-5 whitespace-nowrap border-b border-${bgColor}-200 bg-${bgColor}-100 text-cyan-900`
+
+const DataTable = ({ data, columns, onChange, loading, ...rest }) => {
+    const bgColor = rest.bgColor ?? 'green'
+
     return (
         <table className="min-w-full max-w-full">
-            <thead>
+            <thead
+                className={`uppercase bg-${bgColor}-200 text-cyan-900 text-xs font-medium leading-4`}
+            >
                 <tr>
                     {columns.map((column) => (
                         <th
                             key={column.title || column.property}
                             className={clsx([
-                                'px-6 py-3 text-xs font-medium leading-4 tracking-wider',
-                                'text-left uppercase bg-green-200 text-cyan-900',
+                                'px-4 py-3 tracking-wider text-left',
+                                column.titleClsx,
                             ])}
                         >
                             {column.title || column.property}
@@ -35,13 +43,16 @@ const DataTable = ({ data, columns, onChange, loading }) => {
                 </tr>
             </thead>
 
-            <tbody className="bg-white">
+            <tbody>
                 {loading ? (
                     <>
                         {[1, 2, 3].map((index) => (
                             <tr key={`tr-${index}`}>
                                 {columns.map((column) => (
-                                    <td key={column.title} className={colClx}>
+                                    <td
+                                        key={column.title}
+                                        className={colClsx(bgColor)}
+                                    >
                                         <div className="animate-pulse flex p-2">
                                             <div className="h-4 w-full bg-slate-400 rounded" />
                                         </div>
@@ -59,6 +70,7 @@ const DataTable = ({ data, columns, onChange, loading }) => {
                                         key={column.property}
                                         item={item}
                                         onChange={onChange}
+                                        bgColor={bgColor}
                                         {...column}
                                     />
                                 ))}
@@ -71,7 +83,7 @@ const DataTable = ({ data, columns, onChange, loading }) => {
     )
 }
 
-const Column = ({ item, property, onChange, ...rest }) => {
+const Column = ({ item, property, onChange, bgColor, ...rest }) => {
     // defaults
     const editable = rest.editable ?? true
     const inputType = rest.inputType ?? 'text'
@@ -111,7 +123,7 @@ const Column = ({ item, property, onChange, ...rest }) => {
             : {}
 
     return (
-        <td className={colClx}>
+        <td className={clsx([colClsx(bgColor), rest.colClsx])}>
             <div className="flex items-center gap-1">
                 {inputType === 'text' ? (
                     <span

@@ -14,6 +14,10 @@ const routes = [
         component: React.lazy(() => import('../pages/Inventory')),
     },
     {
+        path: '/inventory/:productId',
+        component: React.lazy(() => import('../pages/Product')),
+    },
+    {
         path: '/sales-orders',
         component: React.lazy(() => import('../pages/SalesOrders')),
     },

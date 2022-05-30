@@ -19,13 +19,37 @@ const ProductTable = () => {
                     editable: false,
                 },
                 { title: 'name', property: 'name' },
-                // { title: 'average price', property: 'avePrice' }, TODO: need to calculate ave price based on purchase orders
-                // { title: 'markup', property: 'markup' }, TODO: need to calculate markup based on resell price and ave price
+                // TODO: need to calculate ave price based on purchase orders
+                {
+                    title: 'ave. price',
+                    property: 'avePrice',
+                    editable: false,
+                    format: () => 145.0,
+                },
+                // TODO: need to calculate markup based on resell price and ave price
+                {
+                    title: 'markup',
+                    property: 'markup',
+                    editable: false,
+                    format: () => '15%',
+                },
                 { title: 'brand', property: 'brand' },
                 { title: 'sku', property: 'sku', editable: false },
                 { title: 'category', property: 'category' },
-                // { title: 'warehouse qty', property: 'warehouseQty' }, TODO: need to retrieve how much of product units are still in the warehouse
-                // { title: 'store qty', property: 'storeQty' }, TODO: need to retrieve how much of product units are in the store
+                // TODO: need to retrieve how much of product units are still in the warehouse
+                {
+                    title: 'warehouse qty',
+                    property: 'warehouseQty',
+                    editable: false,
+                    format: () => 100,
+                },
+                // TODO: need to retrieve how much of product units are in the store
+                {
+                    title: 'store qty',
+                    property: 'storeQty',
+                    editable: false,
+                    format: () => 50,
+                },
             ]}
             onChange={onChange}
         />
