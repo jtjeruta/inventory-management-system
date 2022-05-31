@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useAuthContext } from '../../contexts/AuthContext'
 import Button from '../../components/SubmitButton'
-import SimpleInput from '../../components/GeneralInput'
-import SelectInput from '../../components/GeneralSelectInput'
+import RemarksForm from './RemarksForm'
+import BalanceForm from './BalanceForm'
+import CustomerForm from './CustomerForm'
+import ProductSelectionForm from './ProductSelectionForm'
 
 const AddOrder = () => {
     const methods = useForm()
@@ -19,33 +21,22 @@ const AddOrder = () => {
             'Sales Order'
         )
         document.getElementById('add_so_form').reset()
+        document.getElementById('soTotalPriceShowcase').innerHTML = 0
         setLoading(false)
     }
 
     return (
         <FormProvider {...methods}>
             <form id="add_so_form" onSubmit={methods.handleSubmit(onSubmit)}>
-                <SelectInput
-                    inputID="soCustomer"
-                    collection="customer"
-                    collectionKey="customerName"
-                    inputName="Customer"
-                    isRequired
-                />
-                <SelectInput
-                    inputID="soProduct"
-                    collection="product"
-                    collectionKey="productName"
-                    inputName="Product"
-                    isRequired
-                />
-                <SimpleInput
-                    inputID="soRemarks"
-                    inputName="Remarks"
-                    inputType="text"
-                    isRequired={false}
-                />
-                <Button text="Add Order" loading={loading} className="" />
+                <div className="w-full flex flex-col gap-4 mt-5">
+                    <CustomerForm />
+                    <ProductSelectionForm />
+                    <div className="flex gap-4">
+                        <RemarksForm className="w-3/4" />
+                        <BalanceForm className="w-1/4" />
+                    </div>
+                </div>
+                <Button className="mt-5" text="Add Order" loading={loading} />
             </form>
         </FormProvider>
     )

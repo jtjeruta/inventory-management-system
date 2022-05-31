@@ -107,6 +107,23 @@ const AuthContextProvider = ({ children }) => {
             return null
         }
     }
+    const getFullDocsOfCollection = async (id) => {
+        try {
+            const querySnap = await getDocs(collectionGroup(db, id))
+            const map = []
+            querySnap.forEach((docIteration) => {
+                map.push([docIteration.id, docIteration.data()])
+            })
+            return map
+        } catch (error) {
+            AppContext.addNotification({
+                type: 'error',
+                title: 'Something went wrong.',
+                content: 'Please try again later.',
+            })
+            return null
+        }
+    }
     const updateStatus = async (collectionName, id, name, status) => {
         try {
             const notifStatusText = status ? 'enabled' : 'disabled'
@@ -336,6 +353,7 @@ const AuthContextProvider = ({ children }) => {
             user,
             authenticating,
             getDocsOfCollection,
+            getFullDocsOfCollection,
         }),
         [user, authenticating]
     )
