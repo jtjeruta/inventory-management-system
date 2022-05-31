@@ -5,7 +5,6 @@ import Card from '../../components/Card'
 
 const CustomerForm = () => {
     const { register } = useFormContext()
-    const [isFocused, setIsFocused] = useState(false)
     const { getFullDocsOfCollection } = useAuthContext()
     const [collectionMap, setCollectionMap] = useState([])
     const changeHandler = (e) => {
@@ -38,10 +37,8 @@ const CustomerForm = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 overflow-visible"
                     style={{ background: 'none  ' }}
                     onFocus={() => {
-                        setIsFocused(true)
                         renderOptions()
                     }}
-                    onBlur={() => setIsFocused(false)}
                     {...register('soCustomer')}
                     required
                     defaultValue=""
