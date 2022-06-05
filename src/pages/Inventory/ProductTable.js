@@ -6,7 +6,7 @@ const ProductTable = () => {
     const InventoryContext = useInventoryContext()
 
     const onChange = (id, field, value) =>
-        InventoryContext.updateProduct(id, field, value)
+        InventoryContext.updateProductField(id, field, value)
 
     return (
         <DataTable

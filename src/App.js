@@ -11,6 +11,7 @@ import EmployeeRoutes from './routes/employeeRoutes'
 import UnAuthenticatedRoutes from './routes/unAuthenticatedRoutes'
 import LoadingScreen from './components/LoadingScreen'
 import { UsersContextProvider } from './contexts/UsersContext'
+import { InventoryContextProvider } from './contexts/InventoryContext'
 
 function AppRoutes() {
     const { user } = useAuthContext()
@@ -67,7 +68,9 @@ function App() {
         <AppContextProvider>
             <AuthContextProvider>
                 <UsersContextProvider>
-                    <AppContent />
+                    <InventoryContextProvider>
+                        <AppContent />
+                    </InventoryContextProvider>
                 </UsersContextProvider>
             </AuthContextProvider>
         </AppContextProvider>

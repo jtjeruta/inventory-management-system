@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import AdminTabsLayout from '../../layouts/AdminTabsLayout'
 import ProductTable from './ProductTable'
-import {
-    InventoryContextProvider,
-    useInventoryContext,
-} from '../../contexts/InventoryContext'
+import { useInventoryContext } from '../../contexts/InventoryContext'
 import AddProductForm from './AddProductForm'
 
-const InventoryPageContent = () => {
+const InventoryPage = () => {
     const InventoryContext = useInventoryContext()
     const [tab, setTab] = useState(0)
 
@@ -27,9 +24,4 @@ const InventoryPageContent = () => {
     )
 }
 
-const InventoryPage = () => (
-    <InventoryContextProvider>
-        <InventoryPageContent />
-    </InventoryContextProvider>
-)
 export default InventoryPage
