@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useMemo, useState } from 'react'
 import { getDocs, collection, updateDoc, doc, getDoc } from 'firebase/firestore'
+import { v4 as uuid } from 'uuid'
 
 import { useAppContext } from './AppContext'
 import { useAuthContext } from './AuthContext'
@@ -124,7 +125,9 @@ const InventoryContextProvider = ({ children }) => {
         }
 
         //  uppdate local product
-        setSelectedProduct((prev) => ({ ...prev, ...data }))
+        if (selectedProduct?.id === id) {
+            setSelectedProduct((prev) => ({ ...prev, ...data }))
+        }
 
         AppContext.addNotification({
             type: 'success',
@@ -136,8 +139,28 @@ const InventoryContextProvider = ({ children }) => {
         return [true]
     }
 
+    const addSelectedProductVariant = async (data) => {
+        if (!selectedProduct) return [false]
+
+        const variants = selectedProduct.variants || []
+        variants.push({ ...data, id: uuid() })
+        const response = await updateProduct(selectedProduct.id, { variants })
+        return response
+    }
+
+    const deleteSelectedProductVariant = async (id) => {
+        if (!selectedProduct) return [false]
+
+        let variants = selectedProduct.variants || []
+        variants = variants.filter((variant) => variant.id !== id)
+        const response = await updateProduct(selectedProduct.id, { variants })
+        return response
+    }
+
     const value = useMemo(
         () => ({
+            addSelectedProductVariant,
+            deleteSelectedProductVariant,
             getProduct,
             listProducts,
             products,

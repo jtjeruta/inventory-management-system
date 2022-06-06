@@ -2,6 +2,7 @@ import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
 import Card from '../../components/Card'
+import FormButton from '../../components/FormButton'
 import InputField2 from '../../components/InputField2'
 import { useAppContext } from '../../contexts/AppContext'
 import { useInventoryContext } from '../../contexts/InventoryContext'
@@ -22,7 +23,7 @@ const ProductForm = () => {
     }
 
     return (
-        <Card className="grow basis-0 p-5">
+        <Card className="grow basis-0">
             {isLoading('get-product') || !selectedProduct ? (
                 <h1>Loading</h1>
             ) : (
@@ -68,12 +69,7 @@ const ProductForm = () => {
                             />
                         </div>
                         <div className="flex justify-end">
-                            <button
-                                type="submit"
-                                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            >
-                                Update
-                            </button>
+                            <FormButton>Update</FormButton>
                         </div>
                     </form>
                 </FormProvider>

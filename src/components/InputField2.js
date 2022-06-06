@@ -27,10 +27,12 @@ const InputField2 = ({
 
     return (
         <div className="relative">
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                {required ? <span className="text-red-700">* </span> : null}
-                {label}
-            </label>
+            {label && (
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    {required ? <span className="text-red-700">* </span> : null}
+                    {label}
+                </label>
+            )}
             <input
                 type={type || 'text'}
                 value={value}
