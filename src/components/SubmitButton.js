@@ -6,7 +6,7 @@ const Button = ({ text, loading, className }) => {
     return (
         <button
             type="submit"
-            className={`w-full py-2 rounded-full bg-green-600 text-gray-100 focus:outline-none ${className}`}
+            className={`w-full py-2 rounded-full bg-green-600 text-gray-100 hover:bg-green-700 shadow-md transition-colors duration-300 ease-in-out ${className}`}
             disabled={loading}
         >
             {loading && (
